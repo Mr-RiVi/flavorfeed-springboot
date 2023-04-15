@@ -13,7 +13,7 @@ public class Profile {
 
     private String email;
 
-    private String contactNumber;
+    private String contactNo;
 
     private String address;
 
@@ -41,12 +41,12 @@ public class Profile {
         this.email = email;
     }
 
-    public String getContactNumber() {
-        return contactNumber;
+    public String getContactNo() {
+        return contactNo;
     }
 
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
     }
 
     public String getAddress() {
@@ -57,5 +57,13 @@ public class Profile {
         this.address = address;
     }
 
+    public Profile(String name, String email, String contactNo, String address) {
+        this.name = name;
+        this.email = email;
+        this.contactNo = contactNo;
+        this.address = address;
+    }
+
+   
     
 }
