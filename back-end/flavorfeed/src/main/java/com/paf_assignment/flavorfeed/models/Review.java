@@ -13,7 +13,7 @@ public class Review {
 
     private String reviewDescription;
 
-    private String reviewerwName;
+    private String reviewerName;
 
     private String reviewDate;
 
@@ -41,12 +41,12 @@ public class Review {
         this.reviewDescription = reviewDescription;
     }
 
-    public String getReviewerwName() {
-        return reviewerwName;
+    public String getReviewerName() {
+        return reviewerName;
     }
 
-    public void setReviewerwName(String reviewerwName) {
-        this.reviewerwName = reviewerwName;
+    public void setReviewerName(String reviewerName) {
+        this.reviewerName = reviewerName;
     }
 
     public String getReviewDate() {
@@ -57,13 +57,12 @@ public class Review {
         this.reviewDate = reviewDate;
     }
 
-    public Review(String reviewTitle, String reviewDescription, String reviewerwName, String reviewDate) {
+    public Review(String reviewTitle, String reviewDescription, String reviewerName, String reviewDate) {
         this.reviewTitle = reviewTitle;
         this.reviewDescription = reviewDescription;
-        this.reviewerwName = reviewerwName;
+        this.reviewerName = reviewerName;
         this.reviewDate = reviewDate;
     }
-
     
 
 }
