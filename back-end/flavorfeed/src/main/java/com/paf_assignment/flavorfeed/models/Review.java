@@ -63,6 +63,6 @@ public class Review {
         this.reviewerName = reviewerName;
         this.reviewDate = reviewDate;
     }
-    
+
 
 }
