@@ -1,5 +1,8 @@
 package com.paf_assignment.flavorfeed.services;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,14 @@ public class ReviewService {
     //Create Reviews as user
     public Review createReview(Review review) {
         return reviewRepository.save(review);
+    }
+
+    public List<Review> getAllReview(){
+        return reviewRepository.findAll();
+    }
+
+    public Optional<Review> getReviewById(String id){
+        return reviewRepository.findById(id);
     }
 }
 
