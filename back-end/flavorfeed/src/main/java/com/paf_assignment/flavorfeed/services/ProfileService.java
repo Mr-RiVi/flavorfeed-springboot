@@ -1,5 +1,8 @@
 package com.paf_assignment.flavorfeed.services;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,14 @@ public class ProfileService {
 
     public Profile createProfile(Profile profile){
         return profileRepository.save(profile);
+    }
+
+    public List<Profile> getAllProfiles(){
+        return profileRepository.findAll();
+    }
+
+    public Optional<Profile> getProfileById(String id){
+        return profileRepository.findById(id);
     }
     
 }
