@@ -13,32 +13,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.paf_assignment.flavorfeed.models.comments;
-import com.paf_assignment.flavorfeed.repositories.CommentRepository;
+import com.paf_assignment.flavorfeed.models.comment;
+import com.paf_assignment.flavorfeed.repositories.commentRepository;
+import com.paf_assignment.flavorfeed.services.commentServices;
+
 
 @RestController
 @RequestMapping("api/comment")
 public class commentController {
-     //Service file alier to reviewService keyword. To use CRUD functions in Controller file
+     //Service file alier to CommentService keyword. To use CRUD functions in Controller file
      @Autowired //
-     private ReviewService reviewService;
+     private commentServices CommentServices;
  
-     //Create Reviews as user
+     //Create Comment as user
      @PostMapping("/create")
-     public ResponseEntity<Review> createReview(@RequestBody Review review) {
-         Review createReview = reviewService.createReview(review);
-         return new ResponseEntity<>(createReview, HttpStatus.CREATED);
+     public ResponseEntity<comment> createComment(@RequestBody comment Comment) {
+        comment createComment = CommentServices.createComment(Comment);
+         return new ResponseEntity<>(createComment, HttpStatus.CREATED);
      }
  
      @GetMapping("/list")
-     public ResponseEntity<List<Review>> getAllReview(){
-         List<Review> review = reviewService.getAllReview();
-         return new ResponseEntity<>(review, HttpStatus.OK);
+     public ResponseEntity<List<comment>> getAllComments(){
+         List<comment> Comment = CommentServices.getAllComments();
+         return new ResponseEntity<>(Comment, HttpStatus.OK);
      }
  
      @GetMapping("/{id}")
-         public ResponseEntity<Review> getReviewById(@PathVariable String id) {
-             Optional<Review> review = reviewService.getReviewById(id);
+         public ResponseEntity<comment> getCommentById(@PathVariable String id) {
+             Optional<comment> review = CommentServices.getCommentById(id);
              if(review.isPresent()){
                  return new ResponseEntity<>(review.get(), HttpStatus.OK);
              }else {
