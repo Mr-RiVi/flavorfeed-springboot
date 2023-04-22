@@ -36,6 +36,12 @@ public class commentsServ {
     public Comments updateComments(Comments commentsRequest) {
         Comments existingComments = repository.findById(commentsRequest.getCommentID()).get();
         existingComments.setDiscription(commentsRequest.getDiscription());
+        return repository.save(existingComments);
+    }
+
+    public String deleteComment(String commentID) {
+        repository.deleteById(commentID);
+        return commentID + "comment has been deleted from the comment section";
     }
 
 }
