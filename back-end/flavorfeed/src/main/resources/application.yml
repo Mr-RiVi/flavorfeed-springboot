@@ -1,0 +1,5 @@
+spring:
+    data:
+        mongodb:
+            url : mongodb+srv://Sanjula:2001september22@cluster0.jkmgxcx.mongodb.net/test
+            database : comments 
