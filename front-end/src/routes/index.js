@@ -7,7 +7,7 @@ import ProfileRouterHome from './profile-router-home'
 const IndexRoutes = () => {
   return (
     <Routes>      
-      <Route path="/profileHome"  element={ <ProfileRouterHome/> }></Route>    
+      <Route path="/profileHome/*"  element={ <ProfileRouterHome/> }></Route>    
     </Routes>
   );
 };
