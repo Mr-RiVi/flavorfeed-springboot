@@ -15,4 +15,3 @@ const IndexRoutes = () => {
 
 export default IndexRoutes;
 
-export default IndexRoutes;
