@@ -61,10 +61,10 @@ public class ProfileController {
         Optional<Profile> existingProfile = profileService.getProfileById(id);
         if (existingProfile.isPresent()) {
             Profile existingProfiletData = existingProfile.get();
-            existingProfiletData.setName(updatedProfileData.getName());
-            existingProfiletData.setEmail(updatedProfileData.getEmail());
-            existingProfiletData.setContactNo(updatedProfileData.getContactNo());
-            existingProfiletData.setAddress(updatedProfileData.getAddress());
+            existingProfiletData.setProfileName(updatedProfileData.getProfileName());
+            existingProfiletData.setProfileEmail(updatedProfileData.getProfileEmail());
+            existingProfiletData.setProfileContactNo(updatedProfileData.getProfileContactNo());
+            existingProfiletData.setProfilePassword(updatedProfileData.getProfilePassword());
             Profile updatedProfile = profileService.updateProfile(id, existingProfiletData);
             return new ResponseEntity<>(updatedProfile, HttpStatus.OK);
         } else {

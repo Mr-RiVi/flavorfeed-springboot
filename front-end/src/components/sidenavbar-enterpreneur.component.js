@@ -17,7 +17,7 @@ const SideNavbar = () => {
     { title: 'HOME', icon: <AiFillHome />, src: '' },
 
     {
-      title: 'MENTOR',
+      title: 'DASHBOARD',
       icon: <RiTeamFill />,
       submenu: true,
       spacing: true,
@@ -84,7 +84,7 @@ const SideNavbar = () => {
                     font-medium text-2xl duration-300 
                     ${!open && 'scale-0'}`}
           >
-            Mentor
+            Reviewer
           </h1>
         </div>
 
