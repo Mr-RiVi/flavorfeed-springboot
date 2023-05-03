@@ -8,63 +8,66 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Profile {
     
     @Id
-    private String id;
+    private String profileId;
 
-    private String name;
+    private String profileName;
 
-    private String email;
+    private String profileEmail;
 
-    private String contactNo;
+    private String profileContactNo;
 
-    private String address;
+    private String profilePassword;
 
-    public String getId() {
-        return id;
+    public String getProfileId() {
+        return profileId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setProfileId(String profileId) {
+        this.profileId = profileId;
     }
 
-    public String getName() {
-        return name;
+    public String getProfileName() {
+        return profileName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProfileName(String profileName) {
+        this.profileName = profileName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getProfileEmail() {
+        return profileEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setProfileEmail(String profileEmail) {
+        this.profileEmail = profileEmail;
     }
 
-    public String getContactNo() {
-        return contactNo;
+    public String getProfileContactNo() {
+        return profileContactNo;
     }
 
-    public void setContactNo(String contactNo) {
-        this.contactNo = contactNo;
+    public void setProfileContactNo(String profileContactNo) {
+        this.profileContactNo = profileContactNo;
     }
 
-    public String getAddress() {
-        return address;
+    public String getProfilePassword() {
+        return profilePassword;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setProfilePassword(String profilePassword) {
+        this.profilePassword = profilePassword;
     }
 
-    public Profile(String name, String email, String contactNo, String address) {
-        this.name = name;
-        this.email = email;
-        this.contactNo = contactNo;
-        this.address = address;
+    public Profile(String profileName, String profileEmail, String profileContactNo, String profilePassword) {
+        this.profileName = profileName;
+        this.profileEmail = profileEmail;
+        this.profileContactNo = profileContactNo;
+        this.profilePassword = profilePassword;
     }
 
    
+
+    
+
     
 }

@@ -2,7 +2,10 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import Header from '../components/layout/header'
+import SideNavbar from '../components/sidenavbar-enterpreneur.component'
 import ReviewAdminHome from '../pages/review-admin-home'
+import SideNavbar from '../components/sidenavbar-enterpreneur.component'
+import RecipeReviewCard from '../pages/seek'
 
 const ReviewRouterHome = () => {
   return (
@@ -10,11 +13,13 @@ const ReviewRouterHome = () => {
       <Header />
       
       <div className="flex min-w-full w-full bg-red-200">
-        {/* <SideNavbar  /> */}
+        <SideNavbar  />
         <div className='ml-[80px]'>
           <Routes >
 
             <Route path="/" element={<ReviewAdminHome />}></Route>
+            <Route path="/seek" element={<RecipeReviewCard />}></Route>
+
 
           </Routes>
         </div>
