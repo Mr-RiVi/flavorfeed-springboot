@@ -16,6 +16,7 @@ public class Review {
     private String reviewerName;
 
     private String reviewDate;
+    
 
     public String getReviewId() {
         return reviewId;
