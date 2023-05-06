@@ -34,13 +34,16 @@ public class ProfileService {
     public Profile updateProfile(String id, Profile profile) {
         Optional<Profile> optionalProfile = profileRepository.findById(id);
 
-        if (optionalProfile.isPresent()) { 
-            Profile existingProfile = optionalProfile.get(); 
-            existingProfile.setProfileName(profile.getProfileName()); 
-            existingProfile.setProfileEmail(profile.getProfileEmail()); 
-            existingProfile.setProfileContactNo(profile.getProfileContactNo()); 
-            existingProfile.setProfilePassword(profile.getProfilePassword()); 
-            return profileRepository.save(existingProfile); 
+        if (optionalProfile.isPresent()) { // check if the profile exists in the repository
+            Profile existingProfile = optionalProfile.get(); // get the existing profile object
+            existingProfile.setProfileName(profile.getProfileName()); // update its name
+            existingProfile.setProfileEmail(profile.getProfileEmail()); // update its email
+            existingProfile.setProfileContactNo(profile.getProfileContactNo());
+            existingProfile.setProfileDesc(profile.getProfileDesc());
+            existingProfile.setProfileImg(profile.getProfileImg());
+            existingProfile.setProfileFollow(profile.getProfileFollow()); // update its contact number
+            existingProfile.setProfilePassword(profile.getProfilePassword()); // update its address
+            return profileRepository.save(existingProfile); // save the updated profile object
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found");
         }

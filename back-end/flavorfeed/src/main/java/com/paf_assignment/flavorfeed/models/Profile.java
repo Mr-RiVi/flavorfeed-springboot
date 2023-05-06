@@ -20,9 +20,15 @@ public class Profile {
 
     private String profilePassword;
 
+    private String profileDesc;
+
+    private String profileImg;
+
+    private String profileFollow;
+
     private List<Review> reviews;
 
-    //Getters & Setters
+
     public String getProfileId() {
         return profileId;
     }
@@ -63,6 +69,30 @@ public class Profile {
         this.profilePassword = profilePassword;
     }
 
+    public String getProfileDesc() {
+        return profileDesc;
+    }
+
+    public void setProfileDesc(String profileDesc) {
+        this.profileDesc = profileDesc;
+    }
+
+    public String getProfileImg() {
+        return profileImg;
+    }
+
+    public void setProfileImg(String profileImg) {
+        this.profileImg = profileImg;
+    }
+
+    public String getProfileFollow() {
+        return profileFollow;
+    }
+
+    public void setProfileFollow(String profileFollow) {
+        this.profileFollow = profileFollow;
+    }
+
     public List<Review> getReviews() {
         return reviews;
     }
@@ -72,14 +102,17 @@ public class Profile {
     }
 
     public Profile(String profileName, String profileEmail, String profileContactNo, String profilePassword,
-            List<Review> reviews) {
+            String profileDesc, String profileImg, String profileFollow, List<Review> reviews) {
         this.profileName = profileName;
         this.profileEmail = profileEmail;
         this.profileContactNo = profileContactNo;
         this.profilePassword = profilePassword;
+        this.profileDesc = profileDesc;
+        this.profileImg = profileImg;
+        this.profileFollow = profileFollow;
         this.reviews = reviews;
     }
-    
+
 
     public static class Review {
         private String reviewId;
@@ -162,5 +195,5 @@ public class Profile {
         } 
 
     }
-
+ 
 }

@@ -60,6 +60,9 @@ public class ProfileController {
             existingProfiletData.setProfileName(updatedProfileData.getProfileName());
             existingProfiletData.setProfileEmail(updatedProfileData.getProfileEmail());
             existingProfiletData.setProfileContactNo(updatedProfileData.getProfileContactNo());
+            existingProfiletData.setProfileDesc(updatedProfileData.getProfileDesc());
+            existingProfiletData.setProfileImg(updatedProfileData.getProfileImg());
+            existingProfiletData.setProfileFollow(updatedProfileData.getProfileFollow());
             existingProfiletData.setProfilePassword(updatedProfileData.getProfilePassword());
             Profile updatedProfile = profileService.updateProfile(id, existingProfiletData);
             return new ResponseEntity<>(updatedProfile, HttpStatus.OK);
