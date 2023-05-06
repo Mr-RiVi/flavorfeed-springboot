@@ -1,5 +1,7 @@
 package com.paf_assignment.flavorfeed.models;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,6 +20,9 @@ public class Profile {
 
     private String profilePassword;
 
+    private List<Review> reviews;
+
+    //Getters & Setters
     public String getProfileId() {
         return profileId;
     }
@@ -58,16 +63,104 @@ public class Profile {
         this.profilePassword = profilePassword;
     }
 
-    public Profile(String profileName, String profileEmail, String profileContactNo, String profilePassword) {
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public Profile(String profileName, String profileEmail, String profileContactNo, String profilePassword,
+            List<Review> reviews) {
         this.profileName = profileName;
         this.profileEmail = profileEmail;
         this.profileContactNo = profileContactNo;
         this.profilePassword = profilePassword;
+        this.reviews = reviews;
+    }
+    
+
+    public static class Review {
+        private String reviewId;
+        private String reviewImg;
+        private String reviewerName;
+        private String reviewDate;
+        private String reviewTitle;
+        private String reviewLocation;
+        private String reviewDescription;        
+        private String reviewLikeCount;
+        private String reviewRate;
+
+        //Getters & Setters
+        public String getReviewId() {
+            return reviewId;
+        }
+        public void setReviewId(String reviewId) {
+            this.reviewId = reviewId;
+        }
+        public String getReviewImg() {
+            return reviewImg;
+        }
+        public void setReviewImg(String reviewImg) {
+            this.reviewImg = reviewImg;
+        }
+        public String getReviewerName() {
+            return reviewerName;
+        }
+        public void setReviewerName(String reviewerName) {
+            this.reviewerName = reviewerName;
+        }
+        public String getReviewDate() {
+            return reviewDate;
+        }
+        public void setReviewDate(String reviewDate) {
+            this.reviewDate = reviewDate;
+        }
+        public String getReviewTitle() {
+            return reviewTitle;
+        }
+        public void setReviewTitle(String reviewTitle) {
+            this.reviewTitle = reviewTitle;
+        }
+        public String getReviewLocation() {
+            return reviewLocation;
+        }
+        public void setReviewLocation(String reviewLocation) {
+            this.reviewLocation = reviewLocation;
+        }
+        public String getReviewDescription() {
+            return reviewDescription;
+        }
+        public void setReviewDescription(String reviewDescription) {
+            this.reviewDescription = reviewDescription;
+        }
+        public String getReviewLikeCount() {
+            return reviewLikeCount;
+        }
+        public void setReviewLikeCount(String reviewLikeCount) {
+            this.reviewLikeCount = reviewLikeCount;
+        }
+        public String getReviewRate() {
+            return reviewRate;
+        }
+        public void setReviewRate(String reviewRate) {
+            this.reviewRate = reviewRate;
+        }
+
+        public Review(String reviewId, String reviewImg, String reviewerName, String reviewDate, String reviewTitle,
+                String reviewLocation, String reviewDescription, String reviewLikeCount, String reviewRate) {
+            this.reviewId = reviewId;
+            this.reviewImg = reviewImg;
+            this.reviewerName = reviewerName;
+            this.reviewDate = reviewDate;
+            this.reviewTitle = reviewTitle;
+            this.reviewLocation = reviewLocation;
+            this.reviewDescription = reviewDescription;
+            this.reviewLikeCount = reviewLikeCount;
+            this.reviewRate = reviewRate;
+        } 
+
     }
 
-   
-
-    
-
-    
 }
