@@ -1,6 +1,6 @@
 import React from "react";
 
-import Profile1 from "../assets/images/Profile1.jpg";
+import Profile1 from "../../assets/images/profilePic.jpg";
 
 const ProfileAdminHome = () => {
   return (

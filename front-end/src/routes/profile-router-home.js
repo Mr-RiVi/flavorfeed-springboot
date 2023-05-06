@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Header from '../components/layout/header'
 import SideNavbar from '../components/sidenavbar-enterpreneur.component'
 
-import ProfileAdminHome from '../pages/profile-home'
+import ProfileAdminHome from '../pages/profile/profile-home'
 // import ProfileDetails from '../pages/profile-view'
 
 

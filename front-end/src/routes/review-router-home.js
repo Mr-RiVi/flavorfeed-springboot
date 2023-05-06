@@ -4,15 +4,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Header from '../components/layout/header'
 import SideNavbar from '../components/sidenavbar-enterpreneur.component'
 
-import ReviewAdminHome from '../pages/review-home'
-import ReviewUpdate from '../pages/review-update'
-import ReviewCreate from '../pages/review-create'
+import ReviewAdminHome from '../pages/review/review-home'
+import ReviewView from '../pages/review/review-view'
+import ReviewUpdate from '../pages/review/review-update'
+import ReviewCreate from '../pages/review/review-create'
 import RecipeReviewCard from '../pages/seek'
 import Recipehi from '../pages/hi'
 
-import ProfileDetails from '../pages/profile-view'
-import ReviewView from '../pages/review-view'
-import ProfileUpdate from '../pages/profile-update'
+import ProfileDetails from '../pages/profile/profile-view'
+import ProfileUpdate from '../pages/profile/profile-update'
 
 const ReviewRouterHome = () => {
   return (

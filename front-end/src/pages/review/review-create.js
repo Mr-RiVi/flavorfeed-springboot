@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-import { storage } from "../components/widgets/firebase";
+import { storage } from "../../components/widgets/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 
@@ -116,7 +116,7 @@ const ReviewCreate = () => {
             type="file"
             name="image"
             required
-            onChange={handleImageUpload} // add this line
+            onChange={handleImageUpload}
           />
 
           <TextField 

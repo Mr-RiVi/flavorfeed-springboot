@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import Food from "../assets/images/food7.jpg";
-
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
@@ -19,8 +17,9 @@ import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 
-import r2 from "../assets/images/review/R (3).jpeg";
-import "../assets/styles/review.css";
+import Food from "../../assets/images/food7.jpg";
+import r2 from "../../assets/images/review/R (3).jpeg";
+import "../../assets/styles/review.css";
 
 const ReviewAdminHome = () => {
   const [value, setValue] = React.useState(2);

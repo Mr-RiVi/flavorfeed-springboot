@@ -18,11 +18,11 @@ import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 
-import r2 from '../assets/images/review/R (3).jpeg';
-import '../assets/styles/review.css';
+import r2 from '../../assets/images/review/R (3).jpeg';
+import '../../assets/styles/review.css';
 
-import profilePic from "../assets/images/profilePic.jpg";
-import Profile1 from "../assets/images/Profile1.jpg";
+import profilePic from "../../assets/images/profilePic.jpg";
+import Profile1 from "../../assets/images/Profile1.jpg";
 
 const ProfileDetails = () => {
   const { id } = useParams();
@@ -74,7 +74,7 @@ const ProfileDetails = () => {
                     <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                       <div class="relative">
                         <img
-                          src={profilePic}
+                          src={profile.profileImg}
                           alt=""
                           className=" opacity-100 rounded-full shadow-xl h-auto align-middle border-none  -m-16 -ml-20 lg:-ml-1 max-w-150-px"
                         />
