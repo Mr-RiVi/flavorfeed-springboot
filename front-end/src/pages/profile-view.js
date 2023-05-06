@@ -112,6 +112,7 @@ const ProfileDetails = () => {
                         </div>
                       </div>
                     </div>
+
                   </div>
                   
                   <div class="text-center mt-16">
@@ -270,6 +271,7 @@ const ProfileDetails = () => {
                     </Link>
 
                     </div> 
+
                   </div>
                   
                   <br></br>
