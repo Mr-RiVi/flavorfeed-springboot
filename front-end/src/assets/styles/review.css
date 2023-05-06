@@ -88,6 +88,8 @@
   .comment-container {
     display: flex;
     flex-direction: column;
+    max-width: 100%;
+    white-space: normal;
     
   }
   
@@ -147,6 +149,30 @@
     font-weight: 600;
     color: #5f6064;
   }
+  
+
+  .drop-shadow-2xl {
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    scroll-snap-type: x proximity;
+    scroll-padding: 0px 20px;
+    white-space: nowrap;
+    margin-right: 25px;
+  }
+  
+  .drop-shadow-2xl form {
+    display: inline-block;
+    min-width: 300px;
+    vertical-align: top;
+    scroll-snap-align: start;
+    margin-right: 8px;
+    transition: transform 0.3s ease-in-out;
+  }
+
+
+  
+  
+  
   
  
   

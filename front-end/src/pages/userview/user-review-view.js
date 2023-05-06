@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import MarkUnreadChatAltIcon from '@mui/icons-material/MarkUnreadChatAlt';
 
 import Avatar from '@mui/material/Avatar';
@@ -18,13 +17,13 @@ import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 
-import r2 from '../assets/images/review/R (3).jpeg';
-import '../assets/styles/review.css';
+import r2 from '../../assets/images/review/R (3).jpeg';
+import "../../assets/styles/review.css";
 
-import profilePic from "../assets/images/profilePic.jpg";
-import Profile1 from "../assets/images/Profile1.jpg";
+import profilePic from "../../assets/images/profilePic.jpg";
+import Profile1 from "../../assets/images/Profile1.jpg";
 
-const ProfileDetails = () => {
+const UserProfileDetails = () => {
   const { id } = useParams();
   const [profile, setProfile] = useState(null);
 
@@ -55,6 +54,7 @@ const ProfileDetails = () => {
 
   return (
     <div>
+        <h1>user</h1>
       {profile && (
         <div>
           <div className="review bg-gray-200">
@@ -112,9 +112,7 @@ const ProfileDetails = () => {
                         </div>
                       </div>
                     </div>
-
                   </div>
-                  
                   <div class="text-center mt-16">
                     <h3 class="text-4xl font-semibold leading-normal mb-1 text-blueGray-700 ">
                     {profile.profileName}
@@ -125,9 +123,9 @@ const ProfileDetails = () => {
                     </div>
                     <h3 class="text-lg font-bold leading-normal mb-1 text-blueGray-700 ">
                       {profile.profileEmail}
-                    </h3>  
+                    </h3>
+                    
                   </div>
-
                   <div class="mt-10 py-10 border-t border-blueGray-200 text-center">
                     <div class="flex flex-wrap justify-center">
                       <div class="w-full lg:w-9/12 px-4">
@@ -138,16 +136,7 @@ const ProfileDetails = () => {
                           warm, intimate feel with a solid groove structure. An
                           artist of considerable range.
                         </p>
-                      </div>                     
-                    </div>
-                    <div>
-
-                      <Link to={`../profileupdate/${profile.profileId}`}>
-                        <button className="text-xl font-extrabold leading-relaxed text-blueGray-700">
-                          Update
-                        </button>
-                      </Link>
-
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -155,142 +144,126 @@ const ProfileDetails = () => {
             </div>
           </div>
           
-          <div className="mt-20 w-[1382px] justify-center h-auto bg-gray-200 ">
-              <h3 class="text-4xl mt-20 p-5 font-semibold leading-normal ml-[570px] text-blueGray-700 ">
-                  My Reviews
-                </h3>
-            <div className="-mt-5 mb-10 drop-shadow-2xl w-[1382px]">
-              {getReviews(profile.profileId).map((review, i) => (
-                <form key={review.reviewId} class="flex-auto pl-6 pr-6">
-                  <h1 hidden>{i + 1}</h1>
+              <div className="mt-20 w-[1382px] justify-center h-auto bg-gray-200 ">
+                 <h3 class="text-4xl mt-20 p-5 font-semibold leading-normal ml-[570px] text-blueGray-700 ">
+                      My Reviews
+                    </h3>
+                <div className="-mt-5 mb-10 drop-shadow-2xl w-[1382px]">
+                  {getReviews(profile.profileId).map((review, i) => (
+                    <form key={review.reviewId} class="flex-auto pl-6 pr-6">
+                      <h1 hidden>{i + 1}</h1>
 
-                  <div class="card ml-4 mt-4 mb-5 p-3 ">
-                    <div class="comment-container ml-4  ">
-                        <div class="user">
-                          
-                            <div class="user-pic">
-                            <h1 hidden>{i + 1}</h1>
-                              <Stack direction="row" spacing={2}>     
-                                <Avatar sx={{ bgcolor: deepOrange[500] }}>N</Avatar>
-                              </Stack>
+                      <div class="card ml-4 mt-4 mb-5 p-3 ">
+                        <div class="comment-container ml-4  ">
+                            <div class="user">
+                              
+                                <div class="user-pic">
+                                <h1 hidden>{i + 1}</h1>
+                                  <Stack direction="row" spacing={2}>     
+                                    <Avatar sx={{ bgcolor: deepOrange[500] }}>N</Avatar>
+                                  </Stack>
 
-                              <svg fill="none" viewBox="0 0 24 24" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
-                              </svg>
+                                  <svg fill="none" viewBox="0 0 24 24" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
+                                  </svg>
+                                </div>
+                                <div class="user-info">
+                                <span>{profile.profileName}</span>
+                                <p>{review.reviewDate}</p>
+                                
+                                </div>
                             </div>
-                            <div class="user-info">
-                            <span>{profile.profileName}</span>
-                            <p>{review.reviewDate}</p>
+                        </div>
+
+                        <div class="comments">
+                          <div class="comment-react mt-4">
+                      
+                            <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', }}>
+                            <button>
+                            <IconButton aria-label="add to favorites">
+                              <FavoriteIcon color="secondary"/>
+                            </IconButton>
                             
-                            </div>
-                        </div>
-                    </div>
+                            </button>  
+                            <span>{review.reviewLikeCount}</span>
+                            <hr/>
 
-                    <div class="comments">
-                      <div class="comment-react mt-4">
-                  
-                        <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', }}>
-                        <button>
-                        <IconButton aria-label="add to favorites">
-                          <FavoriteIcon color="secondary"/>
-                        </IconButton>
-                        
-                        </button>  
-                        <span>{review.reviewLikeCount}</span>
-                        <hr/>
+                            <button>
+                              <IconButton aria-label="share">
+                              <MarkUnreadChatAltIcon />
+                            </IconButton>
+                            </button> 
+                            <span>3</span>
+                            <hr/>
 
-                        <button>
-                          <IconButton aria-label="share">
-                          <MarkUnreadChatAltIcon />
-                        </IconButton>
-                        </button> 
-                        <span>3</span>
-                        <hr/>
+                            <button>
+                              <IconButton aria-label="share">
+                              <ShareIcon />
+                            </IconButton>
+                            </button>
+                            
+                          </Card>
+                            <hr/>
 
-                        <button>
-                          <IconButton aria-label="share">
-                          <ShareIcon />
-                        </IconButton>
-                        </button>
-                        
-                      </Card>
-                        <hr/>
-
-                      </div>
-                      <div class="comment-container">
-
-                        <div class="user">
-                          <div class="w-80 ">
-                            <img
-                              className="rounded-3xl"
-                              src={review.reviewImg} //food photo
-                              alt=""
-                            />     
                           </div>
-                        </div>
+                          <div class="comment-container">
 
-                        <div className="-ml-12 h-[150px]">
-                          <p class="font-semibold mt-3">
-                            {review.reviewTitle}
-                          </p>
-                          <p class="comment-content font-semibold">
-                            {review.reviewLocation}
-                          </p>
-                          <p class="comment-content mt-3 ">
-                            {review.reviewDescription}
-                          </p>
+                            <div class="user">
+                              <div class="w-80 ">
+                                <img
+                                  className="rounded-3xl"
+                                  src={r2} //food photo
+                                  alt=""
+                                />     
+                              </div>
+                            </div>
 
-                          <Box
-                            sx={{
-                              '& > legend': { mt: 1 },
-                            }}
-                          >
-                            <Typography component="legend"></Typography>
-                            <Rating
-                              name="simple-controlled"
-                              size="small"
-                              // value={value}
-                              // onChange={(event, newValue) => {
-                              //   setValue(newValue);
-                              // }}
-                            />
-                            {/* <Typography component="legend">Read only</Typography>
-                            <Rating name="read-only" value={value} readOnly /> */}
-                          </Box>
+                            <div className="-ml-12 h-[150px]">
+                              <p class="font-semibold mt-3">
+                                {review.reviewTitle}
+                              </p>
+                              <p class="comment-content font-semibold">
+                                {review.reviewLocation}
+                              </p>
+                              <p class="comment-content mt-3 ">
+                                {review.reviewDescription}
+                              </p>
 
-                        </div>
+                              <Box
+                                sx={{
+                                  '& > legend': { mt: 1 },
+                                }}
+                              >
+                                <Typography component="legend"></Typography>
+                                <Rating
+                                  name="simple-controlled"
+                                  size="small"
+                                  // value={value}
+                                  // onChange={(event, newValue) => {
+                                  //   setValue(newValue);
+                                  // }}
+                                />
+                                {/* <Typography component="legend">Read only</Typography>
+                                <Rating name="read-only" value={value} readOnly /> */}
+                              </Box>
+
+                            </div>
+                          </div>
+                        </div>   
                       </div>
-                    </div>  
-                    <div className="relative flex flex-col">
 
-                    <Link to={`../reviewupdate/${profile.profileId}/${review.reviewId}`}>
-                      <button>Update</button>
-                    </Link>
+                      <br></br>
+                    </form>
+                  ))}
+                </div>
 
-                    <Link to={`../reviewview/${profile.profileId}/${review.reviewId}`}>
-                      <button>view</button>
-                    </Link>
-
-                    </div> 
-
-                  </div>
-                  
-                  <br></br>
-                  
-                </form>
-              ))}
-            </div>
-          </div>
-
-          <Link to={`../reviewcreate/${profile.profileId}`}>
-            <Button variant="contained" color="primary">
-              Create Review
-            </Button>
-          </Link>
-
+                
+              </div>
+            
+  
         </div>
       )}
     </div>
   );
 };
 
-export default ProfileDetails;
+export default UserProfileDetails;

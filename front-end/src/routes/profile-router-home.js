@@ -5,7 +5,7 @@ import Header from '../components/layout/header'
 import SideNavbar from '../components/sidenavbar-enterpreneur.component'
 
 import ProfileAdminHome from '../pages/profile-home'
-import ProfileDetails from '../pages/profile-view'
+// import ProfileDetails from '../pages/profile-view'
 
 
 const ProfileRouterHome = () => {
@@ -19,7 +19,7 @@ const ProfileRouterHome = () => {
               <Routes>
   
                 <Route path="/" element={<ProfileAdminHome />}></Route>    
-                <Route path="/profiledetails" element={<ProfileDetails />}></Route>        
+                {/* <Route path="/profiledetails" element={<ProfileDetails />}></Route>         */}
     
               </Routes>                 
           </div>
