@@ -41,7 +41,10 @@ public class ProfileService {
             Profile existingProfile = optionalProfile.get(); // get the existing profile object
             existingProfile.setProfileName(profile.getProfileName()); // update its name
             existingProfile.setProfileEmail(profile.getProfileEmail()); // update its email
-            existingProfile.setProfileContactNo(profile.getProfileContactNo()); // update its contact number
+            existingProfile.setProfileContactNo(profile.getProfileContactNo());
+            existingProfile.setProfileDesc(profile.getProfileDesc());
+            existingProfile.setProfileImg(profile.getProfileImg());
+            existingProfile.setProfileFollow(profile.getProfileFollow()); // update its contact number
             existingProfile.setProfilePassword(profile.getProfilePassword()); // update its address
             return profileRepository.save(existingProfile); // save the updated profile object
         } else {

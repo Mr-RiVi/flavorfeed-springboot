@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Header from '../components/layout/header'
 import SideNavbar from '../components/sidenavbar-enterpreneur.component'
 import ReviewAdminHome from '../pages/review-admin-home'
-import SideNavbar from '../components/sidenavbar-enterpreneur.component'
+
 import RecipeReviewCard from '../pages/seek'
 
 const ReviewRouterHome = () => {

@@ -16,6 +16,12 @@ public class Profile {
 
     private String profileContactNo;
 
+    private String profileDesc;
+
+    private String profileImg;
+
+    private String profileFollow;
+
     private String profilePassword;
 
     public String getProfileId() {
@@ -56,14 +62,44 @@ public class Profile {
 
     public void setProfilePassword(String profilePassword) {
         this.profilePassword = profilePassword;
+    }    
+
+    public String getProfileDesc() {
+        return profileDesc;
     }
 
-    public Profile(String profileName, String profileEmail, String profileContactNo, String profilePassword) {
+    public void setProfileDesc(String profileDesc) {
+        this.profileDesc = profileDesc;
+    }
+
+    public String getProfileImg() {
+        return profileImg;
+    }
+
+    public void setProfileImg(String profileImg) {
+        this.profileImg = profileImg;
+    }
+
+    public String getProfileFollow() {
+        return profileFollow;
+    }
+
+    public void setProfileFollow(String profileFollow) {
+        this.profileFollow = profileFollow;
+    }
+
+    public Profile(String profileName, String profileEmail, String profileContactNo, String profileDesc,
+            String profileImg, String profileFollow, String profilePassword) {
         this.profileName = profileName;
         this.profileEmail = profileEmail;
         this.profileContactNo = profileContactNo;
+        this.profileDesc = profileDesc;
+        this.profileImg = profileImg;
+        this.profileFollow = profileFollow;
         this.profilePassword = profilePassword;
     }
+
+    
 
    
 
