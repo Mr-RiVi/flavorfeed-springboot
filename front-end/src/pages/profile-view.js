@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 
 import profilePic from "../assets/images/profilePic.jpg";
 import Profile1 from "../assets/images/Profile1.jpg";
-const ProfileDetails = () => {
-  const [Profile, setProfile] = useState({});
 
+const ProfileDetails = () => {
+
+  const [Profile, setProfile] = useState({});
   const { id } = useParams();
 
   useEffect(() => {
@@ -20,10 +21,11 @@ const ProfileDetails = () => {
       });
   }, []);
 
+  
   return (
     <div>
       <div className="review bg-gray-200">
-        <img src={Profile1} alt="" className="h-fit w-fit opacity-80 " />
+        <img src={Profile1} alt="" className="h-fit w-fit bg-opacity-75 " />
       </div>
 
       <div className="left-60 -mt-[400px]  h-full w-full flex  items-center opacity-95 ">
@@ -55,7 +57,7 @@ const ProfileDetails = () => {
                       class="bg-violet-800 active:bg-gray-400 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                       type="button"
                     >
-                      Connect
+                      Follow
                     </button>
                   </div>
                 </div>
@@ -84,7 +86,7 @@ const ProfileDetails = () => {
               </div>
               <div class="text-center mt-16">
                 <h3 class="text-4xl font-semibold leading-normal mb-1 text-blueGray-700 ">
-                  Nalinga Kumarasiri
+                Nalinga Kumarasiri
                 </h3>
                 <div class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
                   <i class="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
@@ -107,7 +109,7 @@ const ProfileDetails = () => {
                       Melbourne-raised, Brooklyn-based Nick Murphy writes,
                       performs and records all of his own music, giving it a
                       warm, intimate feel with a solid groove structure. An
-                      artist of considerable range.
+                      artist of considerable range.{Profile.profileDesc}
                     </p>
                     <a href="#pablo" class="font-normal text-pink-500">
                       Show more
