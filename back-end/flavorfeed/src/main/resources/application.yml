@@ -1,5 +1,0 @@
-spring:
-  data:
-    mongodb:
-      url: mongodb+srv://MajorAlpha:787898@commentssection.bcvtmjo.mongodb.net/test
-      database: COMMENTS
