@@ -26,12 +26,6 @@ public class Profile {
 
     private String profilePassword;
 
-    private String profileDesc;
-
-    private String profileImg;
-
-    private String profileFollow;
-
     private List<Review> reviews;
 
 
@@ -74,18 +68,6 @@ public class Profile {
     public void setProfilePassword(String profilePassword) {
         this.profilePassword = profilePassword;
     }    
-
-    public String getProfileDesc() {
-        return profileDesc;
-    }
-
-    public void setProfileDesc(String profileDesc) {
-        this.profileDesc = profileDesc;
-    }
-
-    public String getProfileImg() {
-        return profileImg;
-    }
 
     public String getProfileDesc() {
         return profileDesc;

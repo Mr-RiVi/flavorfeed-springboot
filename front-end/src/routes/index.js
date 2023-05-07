@@ -8,6 +8,7 @@ import Login from '../pages/Login/login'
 import Signup from '../pages/Signup/signup'
 import ReviewRouterHome from './review-router-home'
 import ProfileRouterHome from './profile-router-home'
+import CommentSection from "../pages/comment/comments";
 
 const IndexRoutes = () => {
   return (
@@ -22,7 +23,7 @@ const IndexRoutes = () => {
       <Route path="/reviewHome/*" element={<ReviewRouterHome />} />    
       <Route path="/profileHome/*"  element={ <ProfileRouterHome/> }/>
       <Route path="/reviewerHome/*"  element={ <ReviewRouterHome/> }/>
-
+      <Route path="/comments/*"  element={ <CommentSection/> }/>
 
 
     </Routes>

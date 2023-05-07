@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Navigate } from 'react-router-dom'
-import { login } from '../../requests/auth'
+// import { login } from '../../requests/auth'
 
 import '../../assets/styles/login.css'
 
@@ -12,7 +12,7 @@ function Login() {
   //When the user submits the form, the handleSubmit function sends the username and password to the server for authentication using the login function from a separate auth.js file.
   const handleSubmit = async (event) => {
     event.preventDefault()
-    const success = await login(username, password)
+    const success = await Login(username, password)
     if (success) {
       setRedirectToReferrer(true) //If the login is successful, the redirectToReferrer variable is set to true,*(1)
     } else {
