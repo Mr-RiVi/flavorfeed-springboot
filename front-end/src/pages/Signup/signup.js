@@ -1,106 +1,107 @@
-import { useState, useEffect, useRef } from 'react'
-import axios from 'axios'
+import { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import {
   faCheck,
   faTimes,
   faInfoCircle,
-} from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import '../../assets/styles/signup.css'
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "../../assets/styles/signup.css";
 
-const USERNAME_REGEX = /^[A-z][A-z0-9-_]{3,23}$/
-const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
-const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
-const REGISTER_URL = ''
+const USERNAME_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+const PASSWORD_REGEX =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+const REGISTER_URL = "";
 
 const Signup = () => {
-  const nameRef = useRef()
-  const errRef = useRef()
+  const nameRef = useRef();
+  const errRef = useRef();
 
-  const [name, setName] = useState('')
-  const [nameFocus, setNameFocus] = useState(false)
+  const [name, setName] = useState("");
+  const [nameFocus, setNameFocus] = useState(false);
 
-  const [username, setUsername] = useState('')
-  const [validUsername, setValidUsername] = useState(false)
-  const [usernameFocus, setUsernameFocus] = useState(false)
+  const [username, setUsername] = useState("");
+  const [validUsername, setValidUsername] = useState(false);
+  const [usernameFocus, setUsernameFocus] = useState(false);
 
-  const [email, setEmail] = useState('')
-  const [validEmail, setValidEmail] = useState(false)
-  const [emailFocus, setEmailFocus] = useState(false)
+  const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState(false);
+  const [emailFocus, setEmailFocus] = useState(false);
 
-  const [password, setPassword] = useState('')
-  const [validPassword, setValidPassword] = useState(false)
-  const [passwordFocus, setPasswordFocus] = useState(false)
+  const [password, setPassword] = useState("");
+  const [validPassword, setValidPassword] = useState(false);
+  const [passwordFocus, setPasswordFocus] = useState(false);
 
-  const [matchPassword, setMatchPassword] = useState('')
-  const [validMatchPassword, setValidMatchPassword] = useState(false)
-  const [matchPasswordFocus, setMatchPasswordFocus] = useState(false)
+  const [matchPassword, setMatchPassword] = useState("");
+  const [validMatchPassword, setValidMatchPassword] = useState(false);
+  const [matchPasswordFocus, setMatchPasswordFocus] = useState(false);
 
-  const [errMsg, setErrMsg] = useState('')
-  const [success, setSuccess] = useState(false)
-
-  useEffect(() => {
-    nameRef.current.focus()
-  }, [])
+  const [errMsg, setErrMsg] = useState("");
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    setValidUsername(USERNAME_REGEX.test(username))
-  }, [username])
+    nameRef.current.focus();
+  }, []);
 
   useEffect(() => {
-    setValidEmail(EMAIL_REGEX.test(email))
-  }, [email])
+    setValidUsername(USERNAME_REGEX.test(username));
+  }, [username]);
 
   useEffect(() => {
-    setValidPassword(PASSWORD_REGEX.test(password))
-    setValidMatchPassword(password === matchPassword)
-  }, [password, matchPassword])
+    setValidEmail(EMAIL_REGEX.test(email));
+  }, [email]);
 
   useEffect(() => {
-    setErrMsg('')
-  }, [username, email, password, matchPassword])
+    setValidPassword(PASSWORD_REGEX.test(password));
+    setValidMatchPassword(password === matchPassword);
+  }, [password, matchPassword]);
+
+  useEffect(() => {
+    setErrMsg("");
+  }, [username, email, password, matchPassword]);
 
   //logic when user submit the form
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // if signup button enabled with JS hack? so we check again username and password is valid or not
-    const v1 = USERNAME_REGEX.test(username)
-    const v2 = PASSWORD_REGEX.test(password)
+    const v1 = USERNAME_REGEX.test(username);
+    const v2 = PASSWORD_REGEX.test(password);
     if (!v1 || !v2) {
-      setErrMsg('Invalid Entry')
-      return
+      setErrMsg("Invalid Entry");
+      return;
     }
     try {
       const response = await axios.post(
         REGISTER_URL,
         JSON.stringify({ name, username, password }),
         {
-          headers: { 'Content-Type': 'application/json' },
+          headers: { "Content-Type": "application/json" },
           withCredentials: true,
         }
-      )
-      console.log(response?.data)
-      console.log(response?.accessToken)
-      console.log(JSON.stringify(response))
-      setSuccess(true)
+      );
+      console.log(response?.data);
+      console.log(response?.accessToken);
+      console.log(JSON.stringify(response));
+      setSuccess(true);
       //clear state and controlled inputs
       //need value attrib on inputs for this
-      setName('')
-      setUsername('')
-      setEmail('')
-      setPassword('')
-      setMatchPassword('')
+      setName("");
+      setUsername("");
+      setEmail("");
+      setPassword("");
+      setMatchPassword("");
     } catch (err) {
       if (!err?.response) {
-        setErrMsg('No Server Response')
+        setErrMsg("No Server Response");
       } else if (err.response?.status === 409) {
-        setErrMsg('Username Taken')
+        setErrMsg("Username Taken");
       } else {
-        setErrMsg('Registration Failed')
+        setErrMsg("Registration Failed");
       }
-      errRef.current.focus()
+      errRef.current.focus();
     }
-  }
+  };
   return (
     <>
       {success ? (
@@ -111,11 +112,11 @@ const Signup = () => {
           </p>
         </section>
       ) : (
-        <section>
+        <section className="signup-section">
           {/* error message appear section */}
           <p
             ref={errRef}
-            className={errMsg ? 'errmsg' : 'offscreen'}
+            className={errMsg ? "errmsg" : "offscreen"}
             aria-live="assertive"
           >
             {errMsg}
@@ -145,11 +146,11 @@ const Signup = () => {
               Username:
               <FontAwesomeIcon
                 icon={faCheck}
-                className={validUsername ? 'valid' : 'hide'}
+                className={validUsername ? "valid" : "hide"}
               />
               <FontAwesomeIcon
                 icon={faTimes}
-                className={validUsername || !username ? 'hide' : 'invalid'}
+                className={validUsername || !username ? "hide" : "invalid"}
               />
             </label>
             <input
@@ -159,7 +160,7 @@ const Signup = () => {
               onChange={(e) => setUsername(e.target.value)}
               value={username}
               required
-              aria-invalid={validUsername ? 'false' : 'true'}
+              aria-invalid={validUsername ? "false" : "true"}
               aria-describedby="uidnote"
               onFocus={() => setUsernameFocus(true)}
               onBlur={() => setUsernameFocus(false)}
@@ -168,8 +169,8 @@ const Signup = () => {
               id="username"
               className={
                 usernameFocus && username && !validUsername
-                  ? 'instructions'
-                  : 'offscreen'
+                  ? "instructions"
+                  : "offscreen"
               }
             >
               <FontAwesomeIcon icon={faInfoCircle} />
@@ -185,11 +186,11 @@ const Signup = () => {
               Email:
               <FontAwesomeIcon
                 icon={faCheck}
-                className={validEmail ? 'valid' : 'hide'}
+                className={validEmail ? "valid" : "hide"}
               />
               <FontAwesomeIcon
                 icon={faTimes}
-                className={validEmail || !email ? 'hide' : 'invalid'}
+                className={validEmail || !email ? "hide" : "invalid"}
               />
             </label>
             <input
@@ -199,7 +200,7 @@ const Signup = () => {
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               required
-              aria-invalid={validEmail ? 'false' : 'true'}
+              aria-invalid={validEmail ? "false" : "true"}
               aria-describedby="emailnote"
               onFocus={() => setEmailFocus(true)}
               onBlur={() => setEmailFocus(false)}
@@ -208,8 +209,8 @@ const Signup = () => {
               id="emailnote"
               className={
                 emailFocus && email && !validEmail
-                  ? 'instructions'
-                  : 'offscreen'
+                  ? "instructions"
+                  : "offscreen"
               }
             >
               <FontAwesomeIcon icon={faInfoCircle} />
@@ -222,11 +223,11 @@ const Signup = () => {
               Password:
               <FontAwesomeIcon
                 icon={faCheck}
-                className={validPassword ? 'valid' : 'hide'}
+                className={validPassword ? "valid" : "hide"}
               />
               <FontAwesomeIcon
                 icon={faTimes}
-                className={validPassword || !password ? 'hide' : 'invalid'}
+                className={validPassword || !password ? "hide" : "invalid"}
               />
             </label>
             <input
@@ -235,7 +236,7 @@ const Signup = () => {
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               required
-              aria-invalid={validPassword ? 'false' : 'true'}
+              aria-invalid={validPassword ? "false" : "true"}
               aria-describedby="pwdnote"
               onFocus={() => setPasswordFocus(true)}
               onBlur={() => setPasswordFocus(false)}
@@ -243,7 +244,7 @@ const Signup = () => {
             <p
               id="pwdnote"
               className={
-                passwordFocus && !validPassword ? 'instructions' : 'offscreen'
+                passwordFocus && !validPassword ? "instructions" : "offscreen"
               }
             >
               <FontAwesomeIcon icon={faInfoCircle} />
@@ -252,11 +253,11 @@ const Signup = () => {
               Must include uppercase and lowercase letters, a number and a
               special character.
               <br />
-              Allowed special characters:{' '}
-              <span aria-label="exclamation mark">!</span>{' '}
-              <span aria-label="at symbol">@</span>{' '}
-              <span aria-label="hashtag">#</span>{' '}
-              <span aria-label="dollar sign">$</span>{' '}
+              Allowed special characters:{" "}
+              <span aria-label="exclamation mark">!</span>{" "}
+              <span aria-label="at symbol">@</span>{" "}
+              <span aria-label="hashtag">#</span>{" "}
+              <span aria-label="dollar sign">$</span>{" "}
               <span aria-label="percent">%</span>
             </p>
 
@@ -266,13 +267,13 @@ const Signup = () => {
               <FontAwesomeIcon
                 icon={faCheck}
                 className={
-                  validMatchPassword && matchPassword ? 'valid' : 'hide'
+                  validMatchPassword && matchPassword ? "valid" : "hide"
                 }
               />
               <FontAwesomeIcon
                 icon={faTimes}
                 className={
-                  validMatchPassword || !matchPassword ? 'hide' : 'invalid'
+                  validMatchPassword || !matchPassword ? "hide" : "invalid"
                 }
               />
             </label>
@@ -282,7 +283,7 @@ const Signup = () => {
               onChange={(e) => setMatchPassword(e.target.value)}
               value={matchPassword}
               required
-              aria-invalid={validMatchPassword ? 'false' : 'true'}
+              aria-invalid={validMatchPassword ? "false" : "true"}
               aria-describedby="confirmnote"
               onFocus={() => setMatchPasswordFocus(true)}
               onBlur={() => setMatchPasswordFocus(false)}
@@ -291,8 +292,8 @@ const Signup = () => {
               id="confirmnote"
               className={
                 matchPasswordFocus && !validMatchPassword
-                  ? 'instructions'
-                  : 'offscreen'
+                  ? "instructions"
+                  : "offscreen"
               }
             >
               <FontAwesomeIcon icon={faInfoCircle} />
@@ -315,7 +316,7 @@ const Signup = () => {
         </section>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;
