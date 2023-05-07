@@ -1,0 +1,82 @@
+.bg{
+    background-color: #DEE0E4;
+    padding-top: 50px;
+}
+
+.card {
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #E5E7EB;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .comment-section {
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  .comment-form {
+    margin-bottom: 20px;
+  }
+  
+  .comment-list {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+  }
+  
+  .comment {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .comment .edit-input {
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 5px;
+  }
+  
+  .comment .edit-buttons {
+    align-content: center;
+    background-color: #99b0b8;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .comment .edit-buttons button {
+    margin-left: 5px;
+  }
+  
+  .comment .delete-buttons {
+    padding-left: 100px;
+    background-color: #99b0b8;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  .edit-delete-container {
+    padding-left: 150px;
+  }
