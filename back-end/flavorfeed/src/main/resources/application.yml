@@ -1,5 +1,5 @@
 spring:
-    data:
-        mongodb:
-            url : mongodb+srv://Sanjula:2001september22@cluster0.jkmgxcx.mongodb.net/test
-            database : comments 
+  data:
+    mongodb:
+      url: mongodb+srv://flavorfeed:flavorfeed123@flavor-feed.2kp651h.mongodb.net/test
+      database: flavor-feed
