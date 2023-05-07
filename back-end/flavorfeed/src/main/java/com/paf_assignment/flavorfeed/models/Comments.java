@@ -1,22 +1,28 @@
 package com.paf_assignment.flavorfeed.models;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-// import jakarta.annotation.sql.DataSourceDefinition;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
-@Document(collation = "Comments")
+import javax.validation.constraints.NotBlank;
+import java.util.Date;
+
+@Document(collection = "Comments")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Comments {
     @Id
     private String commentID;
-    private String discription;
-    private String date;
+    @NotBlank
+    private String postId;
+    @NotBlank
+    private String userId;
+    private String description;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private Date timestamp = new Date();
 
 }
