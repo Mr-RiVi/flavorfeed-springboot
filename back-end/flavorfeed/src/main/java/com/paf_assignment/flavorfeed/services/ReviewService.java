@@ -1,5 +1,6 @@
 package com.paf_assignment.flavorfeed.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,39 +10,28 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.paf_assignment.flavorfeed.models.Review;
+import com.paf_assignment.flavorfeed.models.Review.Product;
 import com.paf_assignment.flavorfeed.repositories.ReviewRepository;
-
-//This class serves as the service layer for Reviews, where the business logic resides.
 
 @Service
 public class ReviewService {
     
-    
-    @Autowired //Autowired instance of the ReviewRepository interface for accessing the database.
-    private ReviewRepository reviewRepository; //Repository file alier to reviewRepository. To use  CRUD functions in Service file
+    @Autowired 
+    private ReviewRepository reviewRepository; 
 
-    //Creates a new review in the database.
-    //return The newly created review object.
     public Review createReview(Review review) {
         return reviewRepository.save(review);
     }
 
-    //Returns a list of all the reviews in the database.
-    //return List of all review objects.
     public List<Review> getAllReview(){
         return reviewRepository.findAll();
     }
 
-    //Returns the review with the given ID from the database.
-    //return Optional of the review object if it exists in the database, otherwise empty Optional.
     public Optional<Review> getReviewById(String id){
         return reviewRepository.findById(id);
     }
 
-    //Updates an existing review with the given ID in the database.
-    // return The updated review object.
-    // throws ResponseStatusException with HttpStatus.NOT_FOUND if the review with the given ID doesn't exist.
-    public Review updatReview(String id, Review review) {
+    public Review updateReview(String id, Review review) {
         Optional<Review> optionalReview = reviewRepository.findById(id);
 
         if (optionalReview.isPresent()){
@@ -50,14 +40,13 @@ public class ReviewService {
             existingReview.setReviewDescription(review.getReviewDescription());
             existingReview.setReviewerName(review.getReviewerName());
             existingReview.setReviewDate(review.getReviewDate());
+            existingReview.setProducts(review.getProducts());
             return reviewRepository.save(existingReview);
         }else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
         }
     }
 
-    //Deletes the review with the given ID from the database.
-    //ResponseStatusException with HttpStatus.NOT_FOUND if the review with the given ID doesn't exist.
     public void deleteReview(String id) {
         Optional<Review> optionalReview = reviewRepository.findById(id);
 
@@ -67,6 +56,101 @@ public class ReviewService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
         }
     }
+
+    //add product
+    public void addProduct(String reviewId, Product product) {
+        Optional<Review> optionalReview = reviewRepository.findById(reviewId);
+
+        if (optionalReview.isPresent()) {
+            Review review = optionalReview.get();
+            review.getProducts().add(product);
+            reviewRepository.save(review);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
+        }
+    }
+
+    //all product
+    public List<Product> getAllProducts(String reviewId) {
+        Optional<Review> optionalReview = reviewRepository.findById(reviewId);
+    
+        if (optionalReview.isPresent()) {
+            Review review = optionalReview.get();
+            return review.getProducts();
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
+        }
+    }
+    
+    //one product
+    public Product getProductById(String reviewId, String productId) {
+        Optional<Review> optionalReview = reviewRepository.findById(reviewId);
+    
+        if (optionalReview.isPresent()) {
+            Review review = optionalReview.get();
+            Optional<Product> optionalProduct = review.getProducts()
+                                                        .stream()
+                                                        .filter(p -> p.getPid().equals(productId))
+                                                        .findFirst();
+            if (optionalProduct.isPresent()) {
+                return optionalProduct.get();
+            } else {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
+            }
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
+        }
+    }
+
+    //update product
+    public void updateProduct(String reviewId, Product updatedProduct) {
+        Optional<Review> optionalReview = reviewRepository.findById(reviewId);
+    
+        if (optionalReview.isPresent()) {
+            Review review = optionalReview.get();
+            Optional<Product> optionalProduct = review.getProducts()
+                                                        .stream()
+                                                        .filter(p -> p.getPid().equals(updatedProduct.getPid()))
+                                                        .findFirst();
+            if (optionalProduct.isPresent()) {
+                Product product = optionalProduct.get();
+                product.setPname(updatedProduct.getPname());
+                product.setPcost(updatedProduct.getPcost());
+                reviewRepository.save(review);
+            } else {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
+            }
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
+        }
+    }
+
+    //delete product
+    public void deleteProduct(String reviewId, String productId) {
+        Optional<Review> optionalReview = reviewRepository.findById(reviewId);
+    
+        if (optionalReview.isPresent()) {
+            Review review = optionalReview.get();
+            List<Product> products = review.getProducts();
+            products.removeIf(product -> product.getPid().equals(productId));
+            review.setProducts(products);
+            reviewRepository.save(review);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
+        }
+    }
+
+    //all products 
+    public List<Product> getAllProducts() {
+        List<Review> reviews = reviewRepository.findAll();
+        List<Product> products = new ArrayList<>();
+    
+        for (Review review : reviews) {
+            products.addAll(review.getProducts());
+        }
+    
+        return products;
+    }    
+    
+    
 }
-
-
