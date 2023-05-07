@@ -22,8 +22,10 @@ import r2 from "../../assets/images/review/R (3).jpeg";
 import "../../assets/styles/review.css";
 
 const ReviewAdminHome = () => {
-  const [value, setValue] = React.useState(2);
   const [Profiles, setProfiles] = useState([]);
+  const [likedReviews, setLikedReviews] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchBy, setSearchBy] = useState("profileName");
   
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -48,6 +50,56 @@ const ReviewAdminHome = () => {
       return profile.reviews;
     } else {
       return [];
+    }
+  };
+
+  const filterProfiles = () => {
+    if (searchBy === "profileName") {
+      return Profiles.filter((profile) =>
+        profile.profileName.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    } else {
+      const filteredProfiles = [];
+      Profiles.forEach((profile) => {
+        profile.reviews.forEach((review) => {
+          if (review.reviewTitle.toLowerCase().includes(searchQuery.toLowerCase())) {
+            filteredProfiles.push(profile);
+          }
+        });
+      });
+      return [...new Set(filteredProfiles)];
+    }
+  };
+
+  const handleLikeClick = async (profileId, reviewId) => {
+    if (likedReviews.includes(reviewId)) {
+      return;
+    }
+    setLikedReviews((prev) => [...prev, reviewId]);
+
+    const response = await fetch(
+      `http://localhost:3000/api/profile/review/${profileId}/${reviewId}`
+    );
+    const review = await response.json();
+
+    const updatedReview = {
+      ...review,
+      reviewLikeCount: Number(review.reviewLikeCount) + 1,
+    };
+
+    const putResponse = await fetch(
+      `http://localhost:3000/api/profile/review/update/${profileId}/${reviewId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedReview),
+      }
+    );
+
+    if (!putResponse.ok) {
+      console.error(`Failed to update like count for review ${reviewId}`);
     }
   };
   
@@ -96,19 +148,33 @@ const ReviewAdminHome = () => {
           <div style={secondLineStyle}></div>
         </div>
         <div className="absolute,  ml-80">
-          <h1 className="text-5xl  text-black font-serif mt-5 mb-0 ml-52 drop-shadow-lg shadow-black">
-            OUR REVIEWS
-          </h1>
+          <div className="flex flex-row">
+            <h1 className="text-5xl  text-black font-serif mt-5 mb-0 ml-52 drop-shadow-lg shadow-black">
+              OUR REVIEWS
+            </h1>
+
+            <div className="search-container ml-8 mt-5">
+        <input
+          type="text"
+          placeholder={`Search ${searchBy === "profileName" ? "profiles" : "reviews"}`}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <select value={searchBy} onChange={(e) => setSearchBy(e.target.value)}>
+          <option value="profileName">Profile Name</option>
+          <option value="reviewTitle">Review Title</option>
+        </select>
+      </div>
+          </div>
+
         </div>
 
         <div className="w-[1382px] justify-center h-auto bg-gray-200 ">
       <div className="flex flex-row overflow-auto justify-start mt-2 mb-10 drop-shadow-2xl w-[1382px]">
-        
-        {Profiles.map((profile, i) => (
+        {filterProfiles().map((profile, i) => (
           <div key={profile.profileId}>
             {getReviews(profile.profileId).map((review) => (
               <form key={review.reviewId} class="flex-auto pl-6 pr-6 pb-4">
-
                 <div class="card ml-4 mt-4 mb-5  p-3">
                   <div class="comment-container ml-4  ">
                       <div class="user">
@@ -116,15 +182,16 @@ const ReviewAdminHome = () => {
                           <div class="user-pic">
                           <h1 hidden>{i + 1}</h1>
                           {/* <h1 hidden>{j + 1}</h1> */}
-                            <Link to={`../profiledetail/${profile.profileId}`} >
-                              <button
+                          <Link to={`../profiledetail/${profile.profileId}`}>
+                            <button>
+                              {profile.profileImg ? (
+                                <Avatar alt="Profile picture" src={profile.profileImg} />
+                              ) : (
+                                <Avatar sx={{ bgcolor: deepOrange[500] }}>{profile.name[0]}</Avatar>
+                              )}
+                            </button>
+                          </Link>
                             
-                            >
-                                <Stack direction="row" spacing={2}>     
-                                  <Avatar sx={{ bgcolor: deepOrange[500] }}>N</Avatar>
-                                </Stack>
-                              </button>
-                            </Link>                             
                             
                             <svg fill="none" viewBox="0 0 24 24" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
                             </svg>
@@ -141,14 +208,24 @@ const ReviewAdminHome = () => {
                     <div class="comment-react mt-4">
                 
                       <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', }}>
-                      <button>
-                      <IconButton aria-label="add to favorites">
-                       <FavoriteIcon color="secondary"/>
-                      </IconButton>
                       
-                      </button>  
-                      <span>{review.reviewLikeCount}</span>
-                      <hr/>
+                      {/* like button */}
+                      <button
+                        disabled={likedReviews.includes(review.reviewId)}
+                        onClick={() =>
+                          handleLikeClick(profile.profileId, review.reviewId)
+                        }
+                      >
+                        <IconButton aria-label="add to favorites">
+                          <FavoriteIcon color="secondary" />
+                        </IconButton>
+                      </button>
+                      <span>
+                        {likedReviews.includes(review.reviewId)
+                          ? Number(review.reviewLikeCount) + 1
+                          : review.reviewLikeCount}
+                      </span>
+                      <hr />
 
                       <button>
                         <IconButton aria-label="share">
@@ -176,7 +253,7 @@ const ReviewAdminHome = () => {
                         <div class="w-80 ">
                           <img
                             className="rounded-3xl"
-                            src={r2} //food photo
+                            src={review.reviewImg} //food photo
                             alt=""
                           />     
                         </div>
@@ -194,28 +271,23 @@ const ReviewAdminHome = () => {
                         </p>
 
                         <Box
-                          sx={{
-                            '& > legend': { mt: 1 },
-                          }}
-                        >
-                          <Typography component="legend"></Typography>
-                          <Rating
-                            name="simple-controlled"
-                            size="small"
-                            // value={value}
-                            // onChange={(event, newValue) => {
-                            //   setValue(newValue);
-                            // }}
-                          />
-                          {/* <Typography component="legend">Read only</Typography>
-                          <Rating name="read-only" value={value} readOnly /> */}
-                        </Box>
+                            sx={{
+                              '& > legend': { mt: 1 },
+                            }}
+                          >
+                            <Typography component="legend"></Typography>
+                            <Rating
+                              name="simple-controlled"
+                              size="small"
+                              value={review.reviewRate}
+                              readOnly
+                            />
+                          </Box>
 
                       </div>
                     </div>
                   </div>   
                 </div>
-               
               </form>
             ))}
           </div>

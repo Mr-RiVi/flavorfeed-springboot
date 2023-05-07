@@ -1,27 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import Box from '@mui/material/Box';
-import Rating from '@mui/material/Rating';
-import Typography from '@mui/material/Typography';
-import MarkUnreadChatAltIcon from '@mui/icons-material/MarkUnreadChatAlt';
+import "../assets/styles/review.css";
 
-import Avatar from '@mui/material/Avatar';
-import Stack from '@mui/material/Stack';
-import { deepOrange } from '@mui/material/colors';
-
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import IconButton from '@mui/material/IconButton';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-
-import r2 from '../assets/images/review/R (3).jpeg';
-import '../assets/styles/review.css';
-
-const RecipeReviewCard = () => {
+const ReviewAdminHome = () => {
   const [Profiles, setProfiles] = useState([]);
-  
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchBy, setSearchBy] = useState("profileName");
 
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -49,131 +34,67 @@ const RecipeReviewCard = () => {
     }
   };
 
-
+  const filterProfiles = () => {
+    if (searchBy === "profileName") {
+      return Profiles.filter((profile) =>
+        profile.profileName.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    } else {
+      const filteredProfiles = [];
+      Profiles.forEach((profile) => {
+        profile.reviews.forEach((review) => {
+          if (review.reviewTitle.toLowerCase().includes(searchQuery.toLowerCase())) {
+            filteredProfiles.push(profile);
+          }
+        });
+      });
+      return [...new Set(filteredProfiles)];
+    }
+  };
 
   return (
-    <div className="w-[1399px] justify-center h-auto bg-gray-200 ">
-      <div className="flex flex-row overflow-auto justify-start mt-6 mb-10 drop-shadow-2xl ">
-        
-        {Profiles.map((profile, i) => (
-          <div key={profile.profileId}>
-            {getReviews(profile.profileId).map((review) => (
-              <form key={review.reviewId} class="flex-auto pl-6">
+    <div>
+      
+      <div className="search-container ml-8 mt-5">
+        <input
+          type="text"
+          placeholder={`Search ${searchBy === "profileName" ? "profiles" : "reviews"}`}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <select value={searchBy} onChange={(e) => setSearchBy(e.target.value)}>
+          <option value="profileName">Profile Name</option>
+          <option value="reviewTitle">Review Title</option>
+        </select>
+      </div>
 
-                <div class="card ml-4 mt-4 mb-5  p-3">
-                  <div class="comment-container ml-4  ">
-                      <div class="user">
-                        
-                          <div class="user-pic">
-                          <h1 hidden>{i + 1}</h1>
-                          {/* <h1 hidden>{j + 1}</h1> */}
-                            <Link to={`../hi/${profile.profileId}`} >
-                              <button
-                            
-                            >
-                                <Stack direction="row" spacing={2}>     
-                                  <Avatar sx={{ bgcolor: deepOrange[500] }}>N</Avatar>
-                                </Stack>
-                              </button>
-                            </Link>                             
-                            
-                            <svg fill="none" viewBox="0 0 24 24" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
-                            </svg>
+      <div className="review bg-gray-200">
+        <div className="w-[1382px] justify-center h-auto bg-gray-200 ">
+          <div className="flex flex-row overflow-auto justify-start mt-2 mb-10 drop-shadow-2xl w-[1382px]">
+            {filterProfiles().map((profile, i) => (
+              <div key={profile.profileId}>
+                {getReviews(profile.profileId).map((review) => (
+                  <form key={review.reviewId} class="flex-auto pl-6 pr-6 pb-4">
+                    <div class="card ml-4 mt-4 mb-5  p-3">
+                      <div class="comments">
+                        <div class="comment-react mt-4"></div>
+                        <div class="comment-container">
+                          <div className="-ml-12 h-[150px]">
+                            <p class="font-semibold mt-3">{review.reviewTitle}</p>
+                            <span>{profile.profileName}</span>
                           </div>
-                          <div class="user-info">
-                          <span>{profile.profileName}</span>
-                          <p>{review.reviewDate}</p>
-                          
-                          </div>
-                      </div>
-                  </div>
-
-                  <div class="comments">
-                    <div class="comment-react mt-4">
-                
-                      <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', }}>
-                      <button>
-                      <IconButton aria-label="add to favorites">
-                       <FavoriteIcon color="secondary"/>
-                      </IconButton>
-                      
-                      </button>  
-                      <span>{review.reviewLikeCount}</span>
-                      <hr/>
-
-                      <button>
-                        <IconButton aria-label="share">
-                        <MarkUnreadChatAltIcon />
-                      </IconButton>
-                      </button> 
-                      <span>3</span>
-                      <hr/>
-
-                      <button>
-                        <IconButton aria-label="share">
-                        <ShareIcon />
-                      </IconButton>
-                      </button>
-                      
-                    </Card>
-                      <hr/>
-                      
-
-                      
-                    </div>
-                    <div class="comment-container">
-
-                      <div class="user">
-                        <div class="w-80 ">
-                          <img
-                            className="rounded-3xl"
-                            src={r2} //food photo
-                            alt=""
-                          />     
                         </div>
                       </div>
-
-                      <div className="-ml-12 h-[150px]">
-                        <p class="font-semibold mt-3">
-                          {review.reviewTitle}
-                        </p>
-                        <p class="comment-content font-semibold">
-                          {review.reviewLocation}
-                        </p>
-                        <p class="comment-content mt-3 ">
-                          {review.reviewDescription}
-                        </p>
-
-                        <Box
-                          sx={{
-                            '& > legend': { mt: 1 },
-                          }}
-                        >
-                          <Typography component="legend"></Typography>
-                          <Rating
-                            name="simple-controlled"
-                            size="small"
-                            // value={value}
-                            // onChange={(event, newValue) => {
-                            //   setValue(newValue);
-                            // }}
-                          />
-                          {/* <Typography component="legend">Read only</Typography>
-                          <Rating name="read-only" value={value} readOnly /> */}
-                        </Box>
-
-                      </div>
                     </div>
-                  </div>   
-                </div>
-
-              </form>
+                  </form>
+                ))}
+              </div>
             ))}
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );
-}
+};
 
-export default RecipeReviewCard
+export default ReviewAdminHome;

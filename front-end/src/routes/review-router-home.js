@@ -5,7 +5,6 @@ import Header from '../components/layout/header'
 import SideNavbar from '../components/sidenavbar-enterpreneur.component'
 
 import ReviewAdminHome from '../pages/review/review-home'
-import ReviewView from '../pages/review/review-view'
 import ReviewUpdate from '../pages/review/review-update'
 import ReviewCreate from '../pages/review/review-create'
 import RecipeReviewCard from '../pages/seek'
@@ -25,7 +24,6 @@ const ReviewRouterHome = () => {
           <Routes >
 
             <Route path="/" element={<ReviewAdminHome />}></Route>
-            <Route path="/reviewview/:profileId/:reviewId" element={<ReviewView />}></Route> 
             <Route path="/reviewupdate/:profileId/:reviewId" element={<ReviewUpdate />}></Route>        
             <Route path="/reviewcreate/:profileId" element={<ReviewCreate />}></Route> 
 

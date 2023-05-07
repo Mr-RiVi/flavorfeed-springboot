@@ -3,6 +3,12 @@ import { useParams } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
+import { storage } from "../../components/widgets/firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
+
+import r2 from "../../assets/images/review/R (3).jpeg";
+
 const ReviewUpdate = () => {
   const { profileId, reviewId } = useParams();
   const [review, setReview] = useState(null);
@@ -14,8 +20,6 @@ const ReviewUpdate = () => {
   const [reviewDescription, setReviewDescription] = useState("");
   const [reviewLikeCount, setReviewLikeCount] = useState("");
   const [reviewRate, setReviewRate] = useState("");
-
-  const [deleteSuccess, setDeleteSuccess] = useState(false);
 
   useEffect(() => {
     const fetchReview = async () => {
@@ -42,6 +46,16 @@ const ReviewUpdate = () => {
     fetchReview();
   }, [profileId, reviewId]);
 
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    const storageRef = ref(storage, `review/${uuidv4()}`);
+    uploadBytes(storageRef, file).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setReviewImg(url);
+      });
+    });
+  };
+
   const handleUpdate = async () => {
     try {
       const response = await fetch(`http://localhost:3000/api/profile/review/update/${profileId}/${reviewId}`, {
@@ -61,8 +75,7 @@ const ReviewUpdate = () => {
         })
       });
       if (response.ok) {
-        // window.location.reload();
-        alert('Profile updated successfully');
+        alert('Review updated successfully');
         window.location.href = `../../profiledetail/${profileId}`
       } else {
         throw new Error("Failed to update review");
@@ -71,34 +84,28 @@ const ReviewUpdate = () => {
       console.error(error);
     }
   };
-
-  const handleDelete = async () => {
-    const confirmed = window.confirm("Are you sure you want to delete this profile?");
-    
-    if (confirmed) {
-      try {
-        const response = await fetch(`http://localhost:3000/api/profile/review/delete/${profileId}/${reviewId}`, {
-          method: "DELETE",
-        });
-        if (response.ok) {
-          setDeleteSuccess(true);
-          alert('Review Deleted successfully');
-        } else {
-          throw new Error("Failed to delete review");
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    
-  };
-
   return (
     <div className="w-[1382px] justify-center h-auto bg-sky-200 ">
       <h1>review update</h1>
 
       {review && (
         <div  className="flex-auto pl-6 pr-6">
+            <div class="mt-24 ml-24 mb-20 w-64 h-60">
+            <img
+              src={reviewImg || r2}
+              alt=""
+              className=" opacity-100 shadow-xl h-auto align-middle border-none  -m-16 -ml-20 lg:-ml-1 max-w-150-px"
+            />
+
+            <input
+              className="mt-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              id="default_size"
+              type="file"
+              name="image"
+              required
+              onChange={handleImageUpload}
+            />
+          </div>
 
             <TextField 
               id="outlined-basic"
@@ -152,9 +159,6 @@ const ReviewUpdate = () => {
             <div>
             <Button variant="contained" color="primary" onClick={handleUpdate}>
               Update Review
-            </Button>
-            <Button variant="contained" color="primary" onClick={handleDelete}>
-              Delete
             </Button>
 
             </div>     

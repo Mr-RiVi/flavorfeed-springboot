@@ -170,9 +170,13 @@ const ProfileDetails = () => {
                           
                             <div class="user-pic">
                             <h1 hidden>{i + 1}</h1>
-                              <Stack direction="row" spacing={2}>     
-                                <Avatar sx={{ bgcolor: deepOrange[500] }}>N</Avatar>
-                              </Stack>
+                            <div>
+                              {profile.profileImg ? (
+                                <Avatar alt="Profile picture" src={profile.profileImg} />
+                              ) : (
+                                <Avatar sx={{ bgcolor: deepOrange[500] }}>{profile.name[0]}</Avatar>
+                              )}
+                            </div>
 
                               <svg fill="none" viewBox="0 0 24 24" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
                               </svg>
@@ -248,13 +252,9 @@ const ProfileDetails = () => {
                             <Rating
                               name="simple-controlled"
                               size="small"
-                              // value={value}
-                              // onChange={(event, newValue) => {
-                              //   setValue(newValue);
-                              // }}
+                              value={review.reviewRate}
+                              readOnly
                             />
-                            {/* <Typography component="legend">Read only</Typography>
-                            <Rating name="read-only" value={value} readOnly /> */}
                           </Box>
 
                         </div>
@@ -264,10 +264,6 @@ const ProfileDetails = () => {
 
                     <Link to={`../reviewupdate/${profile.profileId}/${review.reviewId}`}>
                       <button>Update</button>
-                    </Link>
-
-                    <Link to={`../reviewview/${profile.profileId}/${review.reviewId}`}>
-                      <button>view</button>
                     </Link>
 
                     </div> 
