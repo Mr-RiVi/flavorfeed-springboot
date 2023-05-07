@@ -6,6 +6,8 @@ import SideNavbar from '../components/sidenavbar-enterpreneur.component'
 
 import ProfileAdminHome from '../pages/profile/profile-home'
 // import ProfileDetails from '../pages/profile-view'
+import UpdateProfileDetails from '../pages/update'
+import UpdateReviewDetails from '../pages/updatereview'
 
 
 const ProfileRouterHome = () => {
@@ -20,6 +22,9 @@ const ProfileRouterHome = () => {
   
                 <Route path="/" element={<ProfileAdminHome />}></Route>    
                 {/* <Route path="/profiledetails" element={<ProfileDetails />}></Route>         */}
+                <Route path="/update" element={<UpdateProfileDetails />}></Route> 
+                <Route path="/updatereview" element={<UpdateReviewDetails />}></Route> 
+                
     
               </Routes>                 
           </div>
