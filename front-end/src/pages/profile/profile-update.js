@@ -83,6 +83,7 @@ export default function ProfileUpdate() {
         if (response.ok) {
           setDeleteSuccess(true);
           alert("Profile Deleted successfully");
+          window.location.href = `../../reviewerHome`
         } else {
           throw new Error("Failed to delete profile");
         }
