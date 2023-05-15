@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,34 +16,32 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.paf_assignment.flavorfeed.models.Profile;
+import com.paf_assignment.flavorfeed.models.Profile.Review;
 import com.paf_assignment.flavorfeed.services.ProfileService;
 
-/*This class represents the controller for the user profile. It handles incoming HTTP requests and delegates the processing to the ProfileService.
-*/
 @RestController
 @RequestMapping("api/profile")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class ProfileController {
 
     @Autowired
     private ProfileService profileService;
 
-    /*This method maps the POST request to create a new user profile. It accepts the request body containing the profile data as JSON and returns the created profile. */
     @PostMapping("/create")
     public ResponseEntity<Profile> createProfile(@RequestBody Profile profile){
         Profile createdProfile = profileService.createProfile(profile);
         return new ResponseEntity<>(createdProfile, HttpStatus.OK);
     }
     
-    /*This method maps the GET request to retrieve all user profiles. It returns a list of all profiles in the database. */
     @GetMapping("/list")
     public ResponseEntity<List<Profile>> getAllProfiles(){
         List<Profile> profile = profileService.getAllProfiles();
         return new ResponseEntity<>(profile, HttpStatus.OK);
     }
 
-    /*This method maps the GET request to retrieve a user profile by ID. It accepts the ID of the profile as a path variable and returns the corresponding profile, if found. */
     @GetMapping("/{id}")
     public ResponseEntity<Profile> getProfileById(@PathVariable String id) {
         Optional<Profile> profile = profileService.getProfileById(id);
@@ -54,9 +52,6 @@ public class ProfileController {
         }
     }
 
-
-    /*This method maps the PUT request to update an existing user profile.It accepts the ID of the profile to be updated as a path variable and the updated profile data as JSON in the request body.
-    It returns the updated profile, if found and updated successfully. */
     @PutMapping("/update/{id}")
     public ResponseEntity<Profile> updateProfile(@PathVariable String id, @RequestBody Profile updatedProfileData) {
         Optional<Profile> existingProfile = profileService.getProfileById(id);
@@ -65,6 +60,9 @@ public class ProfileController {
             existingProfiletData.setProfileName(updatedProfileData.getProfileName());
             existingProfiletData.setProfileEmail(updatedProfileData.getProfileEmail());
             existingProfiletData.setProfileContactNo(updatedProfileData.getProfileContactNo());
+            existingProfiletData.setProfileDesc(updatedProfileData.getProfileDesc());
+            existingProfiletData.setProfileImg(updatedProfileData.getProfileImg());
+            existingProfiletData.setProfileFollow(updatedProfileData.getProfileFollow());
             existingProfiletData.setProfilePassword(updatedProfileData.getProfilePassword());
             Profile updatedProfile = profileService.updateProfile(id, existingProfiletData);
             return new ResponseEntity<>(updatedProfile, HttpStatus.OK);
@@ -73,9 +71,6 @@ public class ProfileController {
         }
     }
 
-
-    /*This method maps the DELETE request to delete an existing user profile.It accepts the ID of the profile to be deleted as a path variable and returns a success response.
-    If the profile with the specified ID is not found, it returns a not found response */
     @DeleteMapping("delete/{id}")
     public ResponseEntity<Void> deleteStudent(@PathVariable String id) {
         try {
@@ -86,5 +81,57 @@ public class ProfileController {
         }
     }
 
-    
+
+
+    //create review
+    @PostMapping("/review/create/{profileId}")
+    public ResponseEntity<Review> addReview(@PathVariable String profileId, @RequestBody Review review) {
+        Review createdReview = profileService.createReview(profileId, review);
+        return new ResponseEntity<>(createdReview, HttpStatus.OK);
+    }
+
+    //review list 
+    @GetMapping("/{profileId}/reviews/list")
+    public ResponseEntity<List<Review>> getAllReviews(@PathVariable String profileId){
+        List<Review> reviews = profileService.getAllReviews(profileId);
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
+    }
+
+    //get one review
+    @GetMapping("/review/{profileId}/{reviewId}")
+    public ResponseEntity<Review> getOneReview(@PathVariable String profileId, @PathVariable String reviewId) {
+        Review review = profileService.getReviewById(profileId, reviewId);
+        return new ResponseEntity<>(review, HttpStatus.OK);
+    }
+
+    //update review
+    @PutMapping("/review/update/{profileId}/{reviewId}")
+    public ResponseEntity<Review> updateReview(@PathVariable String profileId, @PathVariable String reviewId, @RequestBody Review updatedReviewData) {
+        try {
+            Review updatedReview = profileService.updateReview(profileId, reviewId, updatedReviewData);
+            return new ResponseEntity<>(updatedReview, HttpStatus.OK);
+        } catch (ResponseStatusException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    //delete review
+    @DeleteMapping("/review/delete/{profileId}/{reviewId}")
+    public ResponseEntity<Void> deleteReview(@PathVariable String profileId, @PathVariable String reviewId) {
+        try {
+            profileService.deleteReview(profileId, reviewId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // all reviews
+    @GetMapping("/reviews")
+    public ResponseEntity<List<Review>> getAllReviews() {
+        List<Review> reviews = profileService.getAllReviews();
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
+    }
+
+
 }

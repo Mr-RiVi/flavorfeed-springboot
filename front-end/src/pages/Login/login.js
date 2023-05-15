@@ -58,6 +58,33 @@ function Login() {
         />
 
         <button>Sign In</button>
+    <section className="login-section">
+      <p ref={errorRef} className={errorMsg ? "errormsg" : "offscreen"}>
+        {errorMsg}
+      </p>
+      <h1 className="page-heading">Sign In</h1>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="username">Username:</label>
+        <input
+          type="text"
+          id="username"
+          ref={usernameRef}
+          onChange={(e) => setUsername(e.target.value)}
+          value={username}
+          autoComplete="off"
+          required
+        />
+
+        <lable htmlFor="password">Password:</lable>
+        <input
+          type="password"
+          id="password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+          required
+        />
+
+        <button>Sign In</button>
       </form>
     </section>
   );

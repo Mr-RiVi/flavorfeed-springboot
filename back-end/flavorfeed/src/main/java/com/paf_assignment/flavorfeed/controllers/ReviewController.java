@@ -66,6 +66,7 @@ public class ReviewController {
         }
     }
 
+    //create
     @PostMapping("/{reviewId}/product/create")
     public ResponseEntity<Review> addProduct(@PathVariable String reviewId, @RequestBody Product product) {
         reviewService.addProduct(reviewId, product);
@@ -99,6 +100,7 @@ public class ReviewController {
         }
     }
 
+    //delete
     @DeleteMapping("/{reviewId}/product/delete/{productId}")
     public ResponseEntity<Review> deleteProduct(@PathVariable String reviewId, @PathVariable String productId) {
         reviewService.deleteProduct(reviewId, productId);
@@ -110,6 +112,7 @@ public class ReviewController {
         }
     }
 
+    //all products
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = reviewService.getAllProducts();

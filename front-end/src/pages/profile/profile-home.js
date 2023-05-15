@@ -1,16 +1,16 @@
 import React from "react";
 
-import Profile1 from "../assets/images/Profile1.jpg";
+import Profile1 from "../../assets/images/profilePic.jpg";
 
 const ProfileAdminHome = () => {
   return (
     <div>
       <div className="review bg-gray-200">
-        <img src={Profile1} alt="" className="fixed h-auto w-full opacity-90" />
+        <img src={Profile1} alt="" className="fixed h-auto w-full bg-opacity-75" />
       </div>
 
       <div className="fixed left-60 top-0   h-full w-full flex  items-center">
-        <h1 className="text-5xl  text-white font-bold mb-[400px]">
+        <h1 className="text-5xl text-white font-serif mb-[250px]">
           Welcome to Flavor Feed
         </h1>
 
