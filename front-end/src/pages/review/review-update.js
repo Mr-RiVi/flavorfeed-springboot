@@ -7,9 +7,10 @@ import { storage } from "../../components/widgets/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 
+import Background from "../../assets/images/reviewbg.jpg";
 import r2 from "../../assets/images/review/R (3).jpeg";
 
-const ReviewUpdate = () => {
+export default function ReviewUpdate() {
   const { profileId, reviewId } = useParams();
   const [review, setReview] = useState(null);
   const [reviewImg, setReviewImg] = useState("");
@@ -84,90 +85,128 @@ const ReviewUpdate = () => {
       console.error(error);
     }
   };
+
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/profile/review/delete/${profileId}/${reviewId}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        alert('Review deleted successfully');
+        window.location.href = `../../profiledetail/${profileId}`
+      } else {
+        throw new Error("Failed to delete review");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+
   return (
-    <div className="w-[1382px] justify-center h-auto bg-sky-200 ">
-      <h1>review update</h1>
-
+    <div className="w-[1200px] justify-center h-auto ">
+      <div className="review">
+        <img src={Background} alt="" className="fixed h-auto w-auto" />
+      </div>
       {review && (
-        <div  className="flex-auto pl-6 pr-6">
-            <div class="mt-24 ml-24 mb-20 w-64 h-60">
-            <img
-              src={reviewImg || r2}
-              alt=""
-              className=" opacity-100 shadow-xl h-auto align-middle border-none  -m-16 -ml-20 lg:-ml-1 max-w-150-px"
-            />
+        <div className=" ml-44 p-10 -mt-28">
+          <div class="p-8 bg-gray-400 shadow mt-28 opacity-90 rounded-3xl ">
+            <div class="grid grid-cols-1 md:grid-cols-3">
 
-            <input
-              className="mt-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              id="default_size"
-              type="file"
-              name="image"
-              required
-              onChange={handleImageUpload}
-            />
+              {/* profile pic */}
+              <div class="relative">
+                <div class="w-96 h-60 bg-gray-500 mx-auto rounded-xl shadow-2xl absolute mt-20 -ml-[470px] flex items-center justify-center text-slate-700 left-[500px] ">
+                  <img
+                    src={reviewImg || r2}
+                    alt=""
+                    className=" opacity-100 rounded-xl shadow-xl h-auto align-middle border-none lg:-ml-1 max-w-150-px"
+                  />
+
+                </div>
+                <div className="mr-6">
+                  <input
+                    className="mt-[360px] ml-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-white focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    id="default_size"
+                    type="file"
+                    name="image"
+                    required
+                    onChange={handleImageUpload}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="justify-center">
+              {/* <div key={ProductIdea._id}> */}
+              <div class="flex flex-col p-[20px] w-96 -mt-[450px] mr-10 justify-center m-auto font-serif">
+                {/* Mentor private details */}
+                <form class="flex flex-col mt-[20px] gap-6 ">
+                  
+                  {/* Name */}
+                  <TextField //single line
+                    id="outlined-read-only-input"
+                    label="Title"
+                    value={reviewTitle}
+                    onChange={(e) => setReviewTitle(e.target.value)}
+                  />
+
+                  {/* Description */}
+                  <TextField //only 3 lines showing after that extended inside
+                    id="outlined-multiline-static"
+                    label="Location"
+                    defaultValue={reviewLocation}
+                    onChange={(e) => setReviewLocation(e.target.value)}
+                  />
+
+                  {/* Work History */}
+                  <TextField
+                    id="outlined-multiline-static"
+                    type="date"
+                    value={reviewDate}
+                    onChange={(e) => setReviewDate(e.target.value)}
+                  />
+
+                  {/* Education */}
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Description"
+                    defaultValue={reviewDescription}
+                    onChange={(e) => setReviewDescription(e.target.value)}
+                    multiline
+                    rows={2}
+                  />
+
+                  {/* Education */}
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Rate(1-5)"
+                    defaultValue={reviewRate}
+                    onChange={(e) => setReviewRate(e.target.value)}                 
+                  />
+                </form>
+              </div>
+
+              <div className="flex justify-end mt-3">
+                <button
+                  className="button-1 w-28 h-10 mr-5 -mt-4 rounded-3xl bg-cyan-700 text-black"
+                  onClick={handleUpdate}
+                >
+                  Save
+                </button>
+
+                <button
+                  className="button-2 w-28 h-10 mr-[60px] -mt-4 rounded-3xl bg-cyan-700 text-black opacity-95"
+                  type="submit"
+                  onClick={handleDelete}
+                >
+                  Delete
+                </button>
+
+              </div>
+            </div>
           </div>
-
-            <TextField 
-              id="outlined-basic"
-              label="img"
-              value={reviewImg}
-              onChange={(e) => setReviewImg(e.target.value)}
-            />
-            <TextField 
-            id="outlined-basic"
-            label="name"
-            value={reviewerName}
-            onChange={(e) => setReviewerName(e.target.value)}
-          />
-          <TextField 
-            id="outlined-basic"
-            label="date"
-            value={reviewDate}
-            onChange={(e) => setReviewDate(e.target.value)}
-          />
-          <TextField 
-            id="outlined-basic"
-            label="title"
-            value={reviewTitle}
-            onChange={(e) => setReviewTitle(e.target.value)}
-          />
-            <TextField 
-              id="outlined-basic"
-              label="location"
-              defaultValue={reviewLocation}
-              onChange={(e) => setReviewLocation(e.target.value)}
-            />
-            <TextField 
-              id="outlined-basict"
-              label="description"
-              defaultValue={reviewDescription}
-              onChange={(e) => setReviewDescription(e.target.value)}
-            />
-            <TextField 
-              id="outlined-basic"
-              label="like count"
-              defaultValue={reviewLikeCount}
-              onChange={(e) => setReviewLikeCount(e.target.value)}
-            />
-            <TextField 
-              id="outlined-basic"
-              label="rate"
-              defaultValue={reviewRate}
-              onChange={(e) => setReviewRate(e.target.value)}
-            />
-
-            <div>
-            <Button variant="contained" color="primary" onClick={handleUpdate}>
-              Update Review
-            </Button>
-
-            </div>     
-              
-          </div>  
+        </div>
       )}
-
     </div>
   );
-};
-
-export default ReviewUpdate;
+}

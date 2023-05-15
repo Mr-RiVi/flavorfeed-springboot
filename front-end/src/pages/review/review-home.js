@@ -18,7 +18,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 
 import Food from "../../assets/images/food7.jpg";
-import r2 from "../../assets/images/review/R (3).jpeg";
 import "../../assets/styles/review.css";
 
 const ReviewAdminHome = () => {
@@ -153,147 +152,155 @@ const ReviewAdminHome = () => {
               OUR REVIEWS
             </h1>
 
-            <div className="search-container ml-8 mt-5">
-        <input
-          type="text"
-          placeholder={`Search ${searchBy === "profileName" ? "profiles" : "reviews"}`}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <select value={searchBy} onChange={(e) => setSearchBy(e.target.value)}>
-          <option value="profileName">Profile Name</option>
-          <option value="reviewTitle">Review Title</option>
-        </select>
-      </div>
-          </div>
+            {/* search bar */}
+            <div className="search-container">
+              <div className="border-double border-4 border-sky-300 rounded-3xl ml-32 mt-7 bg-sky-100">
+              <input
+                className="w-[230px] h-[35px] rounded-3xl text-center ml-2 mt-1 mb-1"
+                type="text"
+                placeholder={`Search ${searchBy === "profileName" ? "profiles" : "reviews"}`}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+                <select 
+                  className="rounded-3xl ml-1 mr-2"
+                  value={searchBy} 
+                  onChange={(e) => setSearchBy(e.target.value)}>
+                  <option value="profileName">Profile Name</option>
+                  <option value="reviewTitle">Review Title</option>
+                </select>
+              </div>
+            </div>
 
+          </div>
         </div>
 
         <div className="w-[1382px] justify-center h-auto bg-gray-200 ">
-      <div className="flex flex-row overflow-auto justify-start mt-2 mb-10 drop-shadow-2xl w-[1382px]">
-        {filterProfiles().map((profile, i) => (
-          <div key={profile.profileId}>
-            {getReviews(profile.profileId).map((review) => (
-              <form key={review.reviewId} class="flex-auto pl-6 pr-6 pb-4">
-                <div class="card ml-4 mt-4 mb-5  p-3">
-                  <div class="comment-container ml-4  ">
-                      <div class="user">
-                        
-                          <div class="user-pic">
-                          <h1 hidden>{i + 1}</h1>
-                          {/* <h1 hidden>{j + 1}</h1> */}
-                          <Link to={`../profiledetail/${profile.profileId}`}>
-                            <button>
-                              {profile.profileImg ? (
-                                <Avatar alt="Profile picture" src={profile.profileImg} />
-                              ) : (
-                                <Avatar sx={{ bgcolor: deepOrange[500] }}>{profile.name[0]}</Avatar>
-                              )}
-                            </button>
-                          </Link>
+          <div className="flex flex-row overflow-auto justify-start mt-2 mb-10 drop-shadow-2xl w-[1382px]">
+            {filterProfiles().map((profile, i) => (
+              <div key={profile.profileId}>
+                {getReviews(profile.profileId).map((review) => (
+                  <form key={review.reviewId} class="flex-auto pl-6 pr-6 pb-4">
+                    <div style={{ backgroundColor: 'rgba(231	240	249)' }} className="card ml-4 mt-4 mb-5  p-3">
+                      
+                      <div class="comment-container ml-4  ">
+                          <div class="user">
                             
-                            
-                            <svg fill="none" viewBox="0 0 24 24" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
-                            </svg>
+                              <div class="user-pic">
+                              <h1 hidden>{i + 1}</h1>
+                              {/* <h1 hidden>{j + 1}</h1> */}
+                              <Link to={`../profiledetail/${profile.profileId}`}>
+                                <button>
+                                  {profile.profileImg ? (
+                                    <Avatar alt="Profile picture" src={profile.profileImg} />
+                                  ) : (
+                                    <Avatar sx={{ bgcolor: deepOrange[500] }}>{profile.name[0]}</Avatar>
+                                  )}
+                                </button>
+                              </Link>
+                                
+                                
+                                <svg fill="none" viewBox="0 0 24 24" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
+                                </svg>
+                              </div>
+                              <div class="user-info">
+                              <span>{profile.profileName}</span>
+                              <p>{review.reviewDate}</p>
+                              
+                              </div>
                           </div>
-                          <div class="user-info">
-                          <span>{profile.profileName}</span>
-                          <p>{review.reviewDate}</p>
+                      </div>
+                      <div class="comments">
+                        <div class="comment-react mt-4">
+                    
+                          <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', }}>
                           
-                          </div>
-                      </div>
-                  </div>
-
-                  <div class="comments">
-                    <div class="comment-react mt-4">
-                
-                      <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', }}>
-                      
-                      {/* like button */}
-                      <button
-                        disabled={likedReviews.includes(review.reviewId)}
-                        onClick={() =>
-                          handleLikeClick(profile.profileId, review.reviewId)
-                        }
-                      >
-                        <IconButton aria-label="add to favorites">
-                          <FavoriteIcon color="secondary" />
-                        </IconButton>
-                      </button>
-                      <span>
-                        {likedReviews.includes(review.reviewId)
-                          ? Number(review.reviewLikeCount) + 1
-                          : review.reviewLikeCount}
-                      </span>
-                      <hr />
-
-                      <button>
-                        <IconButton aria-label="share">
-                        <MarkUnreadChatAltIcon />
-                      </IconButton>
-                      </button> 
-                      <span>3</span>
-                      <hr/>
-
-                      <button>
-                        <IconButton aria-label="share">
-                        <ShareIcon />
-                      </IconButton>
-                      </button>
-                      
-                    </Card>
-                      <hr/>
-                      
-
-                      
-                    </div>
-                    <div class="comment-container">
-
-                      <div class="user">
-                        <div class="w-80 ">
-                          <img
-                            className="rounded-3xl"
-                            src={review.reviewImg} //food photo
-                            alt=""
-                          />     
-                        </div>
-                      </div>
-
-                      <div className="-ml-12 h-[150px]">
-                        <p class="font-semibold mt-3">
-                          {review.reviewTitle}
-                        </p>
-                        <p class="comment-content font-semibold">
-                          {review.reviewLocation}
-                        </p>
-                        <p class="comment-content mt-3 ">
-                          {review.reviewDescription}
-                        </p>
-
-                        <Box
-                            sx={{
-                              '& > legend': { mt: 1 },
-                            }}
+                          {/* like button */}
+                          <button
+                            disabled={likedReviews.includes(review.reviewId)}
+                            onClick={() =>
+                              handleLikeClick(profile.profileId, review.reviewId)
+                            }
                           >
-                            <Typography component="legend"></Typography>
-                            <Rating
-                              name="simple-controlled"
-                              size="small"
-                              value={review.reviewRate}
-                              readOnly
-                            />
-                          </Box>
+                            <IconButton aria-label="add to favorites">
+                              <FavoriteIcon color="secondary" />
+                            </IconButton>
+                          </button>
+                          <span>
+                            {likedReviews.includes(review.reviewId)
+                              ? Number(review.reviewLikeCount) + 1
+                              : review.reviewLikeCount}
+                          </span>
+                          <hr />
 
-                      </div>
+                          <button>
+                            <IconButton aria-label="share">
+                            <MarkUnreadChatAltIcon />
+                          </IconButton>
+                          </button> 
+                          <span>3</span>
+                          <hr/>
+
+                          <button>
+                            <IconButton aria-label="share">
+                            <ShareIcon />
+                          </IconButton>
+                          </button>
+                          
+                        </Card>
+                          <hr/>
+                          
+
+                          
+                        </div>
+                        <div class="comment-container">
+
+                          <div class="user">
+                            <div class="w-80 ">
+                              <img
+                                className="rounded-3xl"
+                                src={review.reviewImg} //food photo
+                                alt=""
+                              />     
+                            </div>
+                          </div>
+
+                          <div className="-ml-12 h-[150px]">
+                            <p class="font-semibold mt-3">
+                              {review.reviewTitle}
+                            </p>
+                            <p class="comment-content font-semibold">
+                              {review.reviewLocation}
+                            </p>
+                            <p class="comment-content mt-3 ">
+                              {review.reviewDescription}
+                            </p>
+
+                            <Box
+                                sx={{
+                                  '& > legend': { mt: 1 },
+                                }}
+                              >
+                                <Typography component="legend"></Typography>
+                                <Rating
+                                  name="simple-controlled"
+                                  size="small"
+                                  value={review.reviewRate}
+                                  readOnly
+                                />
+                              </Box>
+
+                          </div>
+                        </div>
+                      </div> 
+
                     </div>
-                  </div>   
-                </div>
-              </form>
+                  </form>
+                ))}
+              </div>
             ))}
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
 
 
       </div>
