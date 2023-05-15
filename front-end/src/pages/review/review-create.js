@@ -14,7 +14,6 @@ export default function ReviewCreate() {
   const [review, setReview] = useState({
     reviewId: '',
     reviewImg: '',
-    reviewerName: 'a',
     reviewDate: '',
     reviewTitle: '',
     reviewLocation: '',
@@ -45,19 +44,22 @@ export default function ReviewCreate() {
     fetchReviewId();
   }, [profileId]);
 
-  const handleImageUpload = async (e) => {
-    // Get the file extension from the file name
-    const fileExtension = e.target.files[0].name.split('.').pop().toLowerCase();
-
-    // Check if the file is of the allowed types
-    const allowedTypes = ['jpg', 'jpeg', 'png'];
-    if (!allowedTypes.includes(fileExtension)) {
-      console.log('Invalid file type');
-      return;
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+  
+    // Check if a file is selected
+    if (file) {
+      const reader = new FileReader();
+  
+      reader.onload = () => {
+        setImageUrl(reader.result);
+      };
+  
+      reader.readAsDataURL(file);
+      setImage(file);
     }
-
-    setImage(e.target.files[0]);
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -117,6 +119,7 @@ export default function ReviewCreate() {
               {/* profile pic */}
               <div class="relative">
                 <div class="w-96 h-60 bg-gray-500 mx-auto rounded-xl shadow-2xl absolute mt-20 -ml-[470px] flex items-center justify-center text-slate-700 left-[500px] ">
+                  {imageUrl && <img src={imageUrl} alt="Selected" />} 
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-24 w-24"
@@ -135,6 +138,7 @@ export default function ReviewCreate() {
                     required
                     onChange={handleImageUpload}
                   />
+                  
                 </div>
               </div>
             </div>

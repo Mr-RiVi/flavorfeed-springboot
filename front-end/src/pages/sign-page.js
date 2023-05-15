@@ -13,7 +13,7 @@ const SignUpPage = () => {
     profileContactNo: "",
     profileDesc: "a",
     profileImg: "a",
-    profileFollow: "a",
+    profileFollow: "false",
     profilePassword: "",
     reviews: []
   });

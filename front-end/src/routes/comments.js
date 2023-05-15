@@ -18,7 +18,7 @@ const ProfileRouterHome = () => {
           <div className ='ml-[80px]'>
               <Routes>
   
-                <Route path="/" element={<CommentSection />}></Route>    
+                <Route path="/comments" element={<CommentSection />}></Route>    
                 {/* <Route path="/profiledetails" element={<ProfileDetails />}></Route>         */}
     
               </Routes>                 

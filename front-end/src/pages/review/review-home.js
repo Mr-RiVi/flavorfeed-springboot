@@ -57,16 +57,21 @@ const ReviewAdminHome = () => {
       return Profiles.filter((profile) =>
         profile.profileName.toLowerCase().includes(searchQuery.toLowerCase())
       );
+    } else if (searchBy === "reviewTitle") {
+      const filteredProfiles = Profiles.filter((profile) =>
+        profile.reviews.some((review) =>
+          review.reviewTitle.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      );
+  
+      return filteredProfiles.map((profile) => ({
+        ...profile,
+        reviews: profile.reviews.filter((review) =>
+          review.reviewTitle.toLowerCase().includes(searchQuery.toLowerCase())
+        ),
+      }));
     } else {
-      const filteredProfiles = [];
-      Profiles.forEach((profile) => {
-        profile.reviews.forEach((review) => {
-          if (review.reviewTitle.toLowerCase().includes(searchQuery.toLowerCase())) {
-            filteredProfiles.push(profile);
-          }
-        });
-      });
-      return [...new Set(filteredProfiles)];
+      return [];
     }
   };
 
@@ -176,7 +181,7 @@ const ReviewAdminHome = () => {
         </div>
 
         <div className="w-[1382px] justify-center h-auto bg-gray-200 ">
-          <div className="flex flex-row overflow-auto justify-start mt-2 mb-10 drop-shadow-2xl w-[1382px]">
+          <div className="flex flex-row overflow-auto justify-start mt-2 mb-2 drop-shadow-2xl w-[1382px]">  {/* bottom space */}
             {filterProfiles().map((profile, i) => (
               <div key={profile.profileId}>
                 {getReviews(profile.profileId).map((review) => (
