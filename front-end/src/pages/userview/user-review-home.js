@@ -17,7 +17,6 @@ import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 
-import r2 from "../../assets/images/Blueberry.png";
 import Food from "../../assets/images/food7.jpg";
 import "../../assets/styles/review.css";
 
@@ -177,7 +176,7 @@ const UserReviewHome = () => {
                         <div class="w-80 ">
                           <img
                             className="rounded-3xl"
-                            src={r2} //food photo
+                            // src={r2} //food photo
                             alt=""
                           />     
                         </div>

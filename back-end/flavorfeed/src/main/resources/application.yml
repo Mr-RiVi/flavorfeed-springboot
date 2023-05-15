@@ -1,0 +1,5 @@
+spring:
+  data:
+    mongodb:
+      url: mongodb+srv://flavorfeed:flavorfeed123@flavor-feed.2kp651h.mongodb.net/test
+      database: flavor-feed
