@@ -10,13 +10,13 @@ import ReviewCreate from "../pages/review/review-create";
 
 import ProfileDetails from "../pages/profile/profile-view";
 import ProfileUpdate from "../pages/profile/profile-update";
+import Seek from "../pages/review/seek";
 
 const ReviewRouterHome = () => {
   return (
-    <div className="bg-blue-200 ">
+    <div>
       <Header />
-
-      <div className="flex min-w-full w-full bg-red-200">
+      <div className="flex min-w-full w-full">
         <SideNavbar />
         <div className="ml-[80px]">
           <Routes>
@@ -38,6 +38,10 @@ const ReviewRouterHome = () => {
             <Route
               path="/profileupdate/:id"
               element={<ProfileUpdate />}
+            ></Route>
+            <Route
+              path="/seek/:id"
+              element={<Seek />}
             ></Route>
           </Routes>
         </div>

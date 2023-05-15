@@ -13,7 +13,7 @@ const SignUpPage = () => {
     profileContactNo: "",
     profileDesc: "a",
     profileImg: "a",
-    profileFollow: "a",
+    profileFollow: "false",
     profilePassword: "",
     reviews: []
   });
@@ -55,17 +55,18 @@ const SignUpPage = () => {
         profileImg: profile.profileImg,
         profileFollow: profile.profileFollow,
         profilePassword: profile.profilePassword,
-        reviews: [{
-          reviewId: profile.reviewId,
-          // Add any other review properties here
-        }]
+        reviews: [
+          {
+            reviewId: "R001"
+          }
+        ]
       };
       const response = await fetch("http://localhost:3000/api/profile/create", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(newProfile),
+        body: JSON.stringify(newProfile)
       });
       if (response.ok) {
         alert("Profile created successfully");
@@ -198,7 +199,8 @@ const SignUpPage = () => {
                   </div>
 
                   <div className="flex items-start"></div>
-                  <Link to={`../reviewerHome`}>              
+                  <Link to={`../reviewerHome`}> 
+                  {/* <Link to={`../reviewerHome/profiledetail/${profile.profileId}`}>               */}
                     <button
                       type="submit"
                       className="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 

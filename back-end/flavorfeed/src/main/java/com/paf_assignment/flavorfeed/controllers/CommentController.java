@@ -1,7 +1,7 @@
 package com.paf_assignment.flavorfeed.controllers;
 
 import com.paf_assignment.flavorfeed.models.Comments;
-//import com.paf_assignment.flavorfeed.models.request.CommentRequest;
+import com.paf_assignment.flavorfeed.models.request.CommentRequest;
 import com.paf_assignment.flavorfeed.services.CommentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +20,11 @@ public class CommentController {
      * @param comments
      * @return comment obj
      */
-    // @PostMapping("/create")
-    // public Comments createComments(@RequestBody CommentRequest comments) {
-    //     return service.addComments(comments);
-    // }
+  
+    @PostMapping("/create")
+    public Comments createComments(@RequestBody CommentRequest comments) {
+        return service.addComments(comments);
+    }
 
     /**
      * @return List<comment>
@@ -46,10 +47,11 @@ public class CommentController {
      * @param commentId
      * @return comment obj
      */
-    // @PutMapping("/update-comment/{commentId}")
-    // public Comments modifyComments(@PathVariable("commentId") String commentId, @RequestBody CommentRequest request) {
-    //     return service.updateComments(commentId, request);
-    // }
+
+    @PutMapping("/update-comment/{commentId}")
+    public Comments modifyComments(@PathVariable("commentId") String commentId, @RequestBody CommentRequest request) {
+        return service.updateComments(commentId, request);
+    }
 
     /**
      * @param commentId

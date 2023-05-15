@@ -120,7 +120,6 @@ public class ProfileService {
             if (optionalReview.isPresent()) {
                 Review existingReview = optionalReview.get();
                 existingReview.setReviewImg(updatedReview.getReviewImg());
-                existingReview.setReviewerName(updatedReview.getReviewerName());
                 existingReview.setReviewDate(updatedReview.getReviewDate());
                 existingReview.setReviewTitle(updatedReview.getReviewTitle());
                 existingReview.setReviewLocation(updatedReview.getReviewLocation());

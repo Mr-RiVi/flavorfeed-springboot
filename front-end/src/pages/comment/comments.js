@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-//import "../../assets/styles/comments.css";
+// import "../../assets/styles/comments.css";
 
 const CommentSection = () => {
   const [comments, setComments] = useState([]);
