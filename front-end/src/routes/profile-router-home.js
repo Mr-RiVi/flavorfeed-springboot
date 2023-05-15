@@ -8,10 +8,10 @@ import ProfileAdminHome from '../pages/profile/profile-home'
 
 const ProfileRouterHome = () => {
     return (
-       <div className=" bg-blue-200 ">
+       <div>
         <Header />
   
-        <div className=" flex min-w-full w-full bg-red-200 ">
+        <div className=" flex min-w-full w-full">
           <SideNavbar />        
           <div className ='ml-[80px]'>
               <Routes>

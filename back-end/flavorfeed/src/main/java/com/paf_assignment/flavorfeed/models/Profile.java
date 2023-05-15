@@ -120,7 +120,6 @@ public class Profile {
     public static class Review {
         private String reviewId;
         private String reviewImg;
-        private String reviewerName;
         private String reviewDate;
         private String reviewTitle;
         private String reviewLocation;
@@ -140,12 +139,6 @@ public class Profile {
         }
         public void setReviewImg(String reviewImg) {
             this.reviewImg = reviewImg;
-        }
-        public String getReviewerName() {
-            return reviewerName;
-        }
-        public void setReviewerName(String reviewerName) {
-            this.reviewerName = reviewerName;
         }
         public String getReviewDate() {
             return reviewDate;
@@ -184,11 +177,10 @@ public class Profile {
             this.reviewRate = reviewRate;
         }
 
-        public Review(String reviewId, String reviewImg, String reviewerName, String reviewDate, String reviewTitle,
+        public Review(String reviewId, String reviewImg, String reviewDate, String reviewTitle,
                 String reviewLocation, String reviewDescription, String reviewLikeCount, String reviewRate) {
             this.reviewId = reviewId;
             this.reviewImg = reviewImg;
-            this.reviewerName = reviewerName;
             this.reviewDate = reviewDate;
             this.reviewTitle = reviewTitle;
             this.reviewLocation = reviewLocation;

@@ -14,7 +14,6 @@ export default function ReviewUpdate() {
   const { profileId, reviewId } = useParams();
   const [review, setReview] = useState(null);
   const [reviewImg, setReviewImg] = useState("");
-  const [reviewerName, setReviewerName] = useState("");
   const [reviewDate, setReviewDate] = useState("");
   const [reviewTitle, setReviewTitle] = useState("");
   const [reviewLocation, setReviewLocation] = useState("");
@@ -30,7 +29,6 @@ export default function ReviewUpdate() {
         if (reviewResponse.ok) {
           setReview(reviewJson);
           setReviewImg(reviewJson.reviewImg);
-          setReviewerName(reviewJson.reviewerName);
           setReviewDate(reviewJson.reviewDate);
           setReviewTitle(reviewJson.reviewTitle);
           setReviewLocation(reviewJson.reviewLocation);
@@ -66,7 +64,6 @@ export default function ReviewUpdate() {
         },
         body: JSON.stringify({
           reviewImg,
-          reviewerName,
           reviewDate,
           reviewTitle,
           reviewLocation,
@@ -113,7 +110,7 @@ export default function ReviewUpdate() {
           <div class="p-8 bg-gray-400 shadow mt-28 opacity-90 rounded-3xl ">
             <div class="grid grid-cols-1 md:grid-cols-3">
 
-              {/* profile pic */}
+              {/* pic */}
               <div class="relative">
                 <div class="w-96 h-60 bg-gray-500 mx-auto rounded-xl shadow-2xl absolute mt-20 -ml-[470px] flex items-center justify-center text-slate-700 left-[500px] ">
                   <img
