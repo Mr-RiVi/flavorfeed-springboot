@@ -110,7 +110,6 @@ export default function ReviewUpdate() {
         <div className=" ml-44 p-10 -mt-28">
           <div class="p-8 bg-gray-400 shadow mt-28 opacity-90 rounded-3xl ">
             <div class="grid grid-cols-1 md:grid-cols-3">
-
               {/* pic */}
               <div class="relative">
                 <div class="w-96 h-60 bg-gray-500 mx-auto rounded-xl shadow-2xl absolute mt-20 -ml-[470px] flex items-center justify-center text-slate-700 left-[500px] ">
