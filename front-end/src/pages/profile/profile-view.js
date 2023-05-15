@@ -22,6 +22,7 @@ const ProfileDetails = () => {
   const [profile, setProfile] = useState(null);
   const [followed, setFollowed] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [likedReviews, setLikedReviews] = useState([]);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -77,6 +78,39 @@ const ProfileDetails = () => {
     }
   };
 
+  //Like function
+  const handleLikeClick = async (profileId, reviewId) => {
+    if (likedReviews.includes(reviewId)) {
+      return;
+    }
+    setLikedReviews((prev) => [...prev, reviewId]);
+
+    const response = await fetch(
+      `http://localhost:3000/api/profile/review/${profileId}/${reviewId}`
+    );
+    const review = await response.json();
+
+    const updatedReview = {
+      ...review,
+      reviewLikeCount: Number(review.reviewLikeCount) + 1,
+    };
+
+    const putResponse = await fetch(
+      `http://localhost:3000/api/profile/review/update/${profileId}/${reviewId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedReview),
+      }
+    );
+
+    if (!putResponse.ok) {
+      console.error(`Failed to update like count for review ${reviewId}`);
+    }
+  };
+
   return (
     <div>
       {profile && (
@@ -97,11 +131,14 @@ const ProfileDetails = () => {
                   <div class="flex flex-wrap justify-center">
                     <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                       <div class="relative">
-                        <img
-                          src={profile.profileImg}
-                          alt=""
-                          className=" opacity-100 rounded-full shadow-xl h-auto align-middle border-none  -m-16 -ml-20 lg:-ml-1 max-w-150-px"
-                        />
+                        <div class="w-60 h-60 bg-gray-400 mx-auto rounded-full shadow-2xl absolute -mt-20 -ml-28 flex items-center justify-center text-slate-700 ">
+                          <img
+                            src={profile.profileImg}
+                            alt=""
+                            className=" opacity-100 rounded-full shadow-xl h-auto align-middle border-none max-w-150-px"
+                          />
+
+                        </div>
                       </div>
                     </div>
                     <div class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
@@ -122,7 +159,7 @@ const ProfileDetails = () => {
                       <div class="flex justify-center py-4 lg:pt-4 pt-8">
                         <div class="mr-4 p-3 text-center">
                           <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                            22
+                            6
                           </span>
                           <span class="text-sm text-blueGray-400">Following</span>
                         </div>
@@ -134,7 +171,7 @@ const ProfileDetails = () => {
                         </div>
                         <div class="lg:mr-4 p-3 text-center">
                           <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                            89
+                            1
                           </span>
                           <span class="text-sm text-blueGray-400">Comments</span>
                         </div>
@@ -223,14 +260,24 @@ const ProfileDetails = () => {
                       <div class="comment-react mt-4">
                   
                         <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', }}>
-                        <button>
-                        <IconButton aria-label="add to favorites">
-                          <FavoriteIcon color="secondary"/>
-                        </IconButton>
                         
-                        </button>  
-                        <span>{review.reviewLikeCount}</span>
-                        <hr/>
+                        {/* like button */}
+                        <button
+                            disabled={likedReviews.includes(review.reviewId)}
+                            onClick={() =>
+                              handleLikeClick(profile.profileId, review.reviewId)
+                            }
+                          >
+                            <IconButton aria-label="add to favorites">
+                              <FavoriteIcon color="secondary" />
+                            </IconButton>
+                          </button>
+                          <span>
+                            {likedReviews.includes(review.reviewId)
+                              ? Number(review.reviewLikeCount) + 1
+                              : review.reviewLikeCount}
+                          </span>
+                          <hr />
 
                         <button>
                           <IconButton aria-label="share">

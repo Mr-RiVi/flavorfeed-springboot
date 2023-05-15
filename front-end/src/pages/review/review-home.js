@@ -75,6 +75,7 @@ const ReviewAdminHome = () => {
     }
   };
 
+  //Like function
   const handleLikeClick = async (profileId, reviewId) => {
     if (likedReviews.includes(reviewId)) {
       return;

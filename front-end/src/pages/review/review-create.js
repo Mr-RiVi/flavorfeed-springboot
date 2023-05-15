@@ -94,6 +94,9 @@ export default function ReviewCreate() {
           body: JSON.stringify(newReview),
         });
         const content = await response.json();
+        alert('Review Add successfully');
+        window.location.href = `../profiledetail/${profileId}`
+        // window.location.href = `../../profiledetail/${profileId}`
         console.log(content);
       })
       .catch((err) => {
@@ -199,11 +202,9 @@ export default function ReviewCreate() {
               </div>
 
               <div className="flex justify-end mt-3">
-
                 <button className="button-1 w-28 h-10 mr-5 -mt-4 rounded-3xl bg-cyan-700 text-black">
                   Create
                 </button>
-
               </div>
             </div>
           </div>
