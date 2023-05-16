@@ -1,89 +1,104 @@
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-// import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 
-// import "../../assets/styles/comments.css";
+const EditCommentPage = () => {
+  const { commentId } = useParams();
+  const navigate = useNavigate();
+  const [comment, setComment] = useState("");
+  const [updatedComment, setUpdatedComment] = useState("");
 
-// const CommentEdit = () => {
-//   const { commentId } = useParams();
-//   const navigate = useNavigate();
+  useEffect(() => {
+    const fetchComment = async () => {
+      try {
+        const originalCommentId = getOriginalCommentId(commentId);
+        const response = await axios.get(
+          `http://localhost:3000/api/comments/get-comment/${originalCommentId}`
+        );
+        setComment(response.data.description);
+        setUpdatedComment(response.data.description);
+      } catch (error) {
+        console.error("Error fetching comment:", error);
+      }
+    };
 
-//   const [comment, setComment] = useState(null);
-//   const [updatedComment, setUpdatedComment] = useState("");
+    fetchComment();
+  }, [commentId]);
 
-//   // Fetch the comment to be edited
-//   useEffect(() => {
-//     const fetchComment = async () => {
-//       try {
-//         const response = await axios.get(
-//           `http://localhost:3000/api/comments/get-comment/${commentId}`
-//         );
-//         setComment(response.data);
-//         setUpdatedComment(response.data.description);
-//       } catch (error) {
-//         console.error("Error fetching comment:", error);
-//       }
-//     };
+  const getOriginalCommentId = (formattedId) => {
+    // Map the formatted ID to the original comment ID
+    switch (formattedId) {
+      case "0001":
+        return "f9b56ece";
+      case "0002":
+        return "b8cbb7cb";
+      case "0003":
+        return "c34474e3";
+      case "0004":
+        return "09869cae";
+      // Add more cases as needed for other formatted IDs
+      default:
+        return "";
+    }
+  };
 
-//     fetchComment();
-//   }, [commentId]);
+  const formattedCommentId = parseInt(commentId, 10).toString(); // Remove leading zeros
 
-//   // Handle comment update
-//   const handleUpdate = async () => {
-//     try {
-//       const response = await axios.put(
-//         `http://localhost:3000/api/comments/update-comment/${commentId}`,
-//         {
-//           description: updatedComment,
-//         }
-//       );
+  const handleUpdate = async () => {
+    try {
+      const originalCommentId = getOriginalCommentId(formattedCommentId);
+      await axios.put(
+        `http://localhost:3000/api/comments/update-comment/${originalCommentId}`,
+        {
+          description: updatedComment,
+        }
+      );
+      // Redirect to "/comments/comments"
+      navigate("/comments/comments");
+    } catch (error) {
+      console.error("Error updating comment:", error);
+    }
+  };
 
-//       // Redirect to the main comments page
-//       navigate("/comments");
-//     } catch (error) {
-//       console.error("Error updating comment:", error);
-//     }
-//   };
+  const handleDelete = async () => {
+    try {
+      const originalCommentId = getOriginalCommentId(formattedCommentId);
+      await axios.delete(
+        `http://localhost:3000/api/comments/delete-comment/${originalCommentId}`
+      );
+      // Redirect to "/comments/comments"
+      navigate("/comments/comments");
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+    }
+  };
 
-//   // Handle comment deletion
-//   const handleDelete = async () => {
-//     try {
-//       await axios.delete(
-//         `http://localhost:3000/api/comments/delete-comment/${commentId}`
-//       );
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <div className="w-96 p-8 bg-gray-100 border border-gray-300 rounded">
+        <h2 className="text-xl mb-4">Edit/Delete Comment</h2>
+        <div className="text-gray-700 mb-4">{comment}</div>
+        <input
+          type="text"
+          value={updatedComment}
+          onChange={(e) => setUpdatedComment(e.target.value)}
+          className="w-full px-4 py-2 mb-4 border border-gray-400 rounded"
+        />
+        <button
+          onClick={handleUpdate}
+          className="w-full bg-gray-700 text-white py-2 px-4 rounded hover:bg-gray-800"
+        >
+          Update
+        </button>
+        <button
+          onClick={handleDelete}
+          className="w-full bg-gray-700 text-white py-2 px-4 rounded mt-2 hover:bg-gray-800"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  );
+};
 
-//       // Redirect to the main comments page
-//       navigate("/comments");
-//     } catch (error) {
-//       console.error("Error deleting comment:", error);
-//     }
-//   };
-
-//   if (!comment) {
-//     return <div>Loading...</div>;
-//   }
-
-//   return (
-//     <div className="bg">
-//       <div className="card">
-//         <h2>Edit Comment</h2>
-
-//         <div className="comment">
-//           <input
-//             type="text"
-//             className="edit-input"
-//             value={updatedComment}
-//             onChange={(e) => setUpdatedComment(e.target.value)}
-//           />
-//           <button onClick={handleUpdate}>Save</button>
-//         </div>
-
-//         <div className="delete-buttons">
-//           <button onClick={handleDelete}>Delete</button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default CommentEdit;
+export default EditCommentPage;

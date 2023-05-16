@@ -12,6 +12,8 @@ import ProfileDetails from "../pages/profile/profile-view";
 import ProfileUpdate from "../pages/profile/profile-update";
 import Seek from "../pages/review/seek";
 
+import CommentSection from "../pages/comment/comments";
+
 const ReviewRouterHome = () => {
   return (
     <div>
@@ -44,6 +46,7 @@ const ReviewRouterHome = () => {
               path="/seek/:id"
               element={<Seek />}
             ></Route>
+            <Route path="/comments" element={<CommentSection />}></Route>
           </Routes>
         </div>
       </div>

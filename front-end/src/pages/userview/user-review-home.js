@@ -159,7 +159,7 @@ const UserReviewHome = () => {
                             <hr />
 
                             <button>
-                              <Link to={`/comments/comments`}>
+                              <Link to={`./comments`}>
                                 <IconButton aria-label="share">
                                   <MarkUnreadChatAltIcon />
                                 </IconButton>
@@ -169,11 +169,11 @@ const UserReviewHome = () => {
                             <hr />
 
                             <button>
-                              {/* <Link to={`/comments/comments`}> */}
+                              <Link to={`./comments`}>
                                 <IconButton aria-label="share">
                                   <ShareIcon />
                                 </IconButton>
-                              {/* </Link> */}
+                              </Link>
                             </button>
                           </Card>
                           <hr />

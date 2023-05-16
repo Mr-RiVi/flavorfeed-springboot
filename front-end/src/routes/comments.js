@@ -5,7 +5,7 @@ import Header from "../components/layout/header";
 import SideNavbar from "../components/sidenavbar-enterpreneur.component";
 
 import CommentSection from "../pages/comment/comments";
-// import CommentEdit from "../pages/comment/comments_edit";
+import EditCommentPage from "../pages/comment/comments_edit";
 // import ProfileDetails from '../pages/profile-view'
 
 const ProfileRouterHome = () => {
@@ -18,7 +18,7 @@ const ProfileRouterHome = () => {
         <div className="ml-[80px]">
           <Routes>
             <Route path="/comments" element={<CommentSection />}></Route>
-            {/* <Route path="/edit" element={<CommentEdit />}></Route> */}
+            <Route path="/edit-comment/:commentId" element={<EditCommentPage />}></Route>
             {/* <Route path="/profiledetails" element={<ProfileDetails />}></Route>         */}
           </Routes>
         </div>
