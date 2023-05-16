@@ -197,12 +197,7 @@ const ProfileDetails = () => {
                     <div class="flex flex-wrap justify-center">
                       <div class="w-full lg:w-9/12 px-4">
                         <p class="mb-4 text-lg leading-relaxed text-blueGray-700">
-                          {profile.profileDesc}
-                           An artist of considerable range, Jenna the name taken by
-                          Melbourne-raised, Brooklyn-based Nick Murphy writes,
-                          performs and records all of his own music, giving it a
-                          warm, intimate feel with a solid groove structure. An
-                          artist of considerable range.
+                          {profile.profileDesc}                    
                         </p>
                       </div>                     
                     </div>

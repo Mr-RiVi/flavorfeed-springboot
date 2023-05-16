@@ -55,11 +55,7 @@ const SignUpPage = () => {
         profileImg: profile.profileImg,
         profileFollow: profile.profileFollow,
         profilePassword: profile.profilePassword,
-        reviews: [
-          {
-            reviewId: "R001"
-          }
-        ]
+        reviews: []
       };
   
       const response = await fetch("http://localhost:3000/api/profile/create", {

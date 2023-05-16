@@ -131,16 +131,6 @@ export default function ProfileUpdate() {
               </div>
             </div>
 
-            <div class="mt-7 text-center pb-6 border-b border-gray-800">
-              <h1 class="text-3xl font-medium text-gray-700">
-                Maleesha Shavindi
-              </h1>
-              <p class="mt-0 text-lg text-gray-500">maleeshashavindi@gmail.com</p>
-              <p class="text-xl mt-0 font-medium text-gray-600 ">
-                Panadura,Sri Lanka
-              </p>
-            </div>
-
             <div class=" flex flex-col justify-center ">
               {/* <div key={ProductIdea._id}> */}
               <div class="flex flex-col p-[20px] w-[1100px] justify-center m-auto">
