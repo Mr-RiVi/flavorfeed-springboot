@@ -25,7 +25,7 @@ const ReviewAdminHome = () => {
   const [likedReviews, setLikedReviews] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchBy, setSearchBy] = useState("profileName");
-  
+
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
@@ -63,7 +63,7 @@ const ReviewAdminHome = () => {
           review.reviewTitle.toLowerCase().includes(searchQuery.toLowerCase())
         )
       );
-  
+
       return filteredProfiles.map((profile) => ({
         ...profile,
         reviews: profile.reviews.filter((review) =>
@@ -107,7 +107,7 @@ const ReviewAdminHome = () => {
       console.error(`Failed to update like count for review ${reviewId}`);
     }
   };
-  
+
   const lineStyle = {
     position: "absolute",
     left: "30%",
@@ -161,23 +161,25 @@ const ReviewAdminHome = () => {
             {/* search bar */}
             <div className="search-container">
               <div className="border-double border-4 border-sky-300 rounded-3xl ml-32 mt-7 bg-sky-100">
-              <input
-                className="w-[230px] h-[35px] rounded-3xl text-center ml-2 mt-1 mb-1"
-                type="text"
-                placeholder={`Search ${searchBy === "profileName" ? "profiles" : "reviews"}`}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-                <select 
+                <input
+                  className="w-[230px] h-[35px] rounded-3xl text-center ml-2 mt-1 mb-1"
+                  type="text"
+                  placeholder={`Search ${
+                    searchBy === "profileName" ? "profiles" : "reviews"
+                  }`}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <select
                   className="rounded-3xl ml-1 mr-2"
-                  value={searchBy} 
-                  onChange={(e) => setSearchBy(e.target.value)}>
+                  value={searchBy}
+                  onChange={(e) => setSearchBy(e.target.value)}
+                >
                   <option value="profileName">Profile Name</option>
                   <option value="reviewTitle">Review Title</option>
                 </select>
               </div>
             </div>
-
           </div>
         </div>
 
@@ -187,87 +189,100 @@ const ReviewAdminHome = () => {
               <div key={profile.profileId}>
                 {getReviews(profile.profileId).map((review) => (
                   <form key={review.reviewId} class="flex-auto pl-6 pr-6 pb-4">
-                    <div style={{ backgroundColor: 'rgba(231	240	249)' }} className="card ml-4 mt-4 mb-5  p-3">
-                      
+                    <div
+                      style={{ backgroundColor: "rgba(231	240	249)" }}
+                      className="card ml-4 mt-4 mb-5  p-3"
+                    >
                       <div class="comment-container ml-4  ">
-                          <div class="user">
-                            
-                              <div class="user-pic">
-                              <h1 hidden>{i + 1}</h1>
-                              {/* <h1 hidden>{j + 1}</h1> */}
-                              <Link to={`../profiledetail/${profile.profileId}`}>
-                                <button>
-                                  {profile.profileImg ? (
-                                    <Avatar alt="Profile picture" src={profile.profileImg} />
-                                  ) : (
-                                    <Avatar sx={{ bgcolor: deepOrange[500] }}>{profile.name[0]}</Avatar>
-                                  )}
-                                </button>
-                              </Link>
-                                
-                                
-                                <svg fill="none" viewBox="0 0 24 24" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
-                                </svg>
-                              </div>
-                              <div class="user-info">
-                              <span>{profile.profileName}</span>
-                              <p>{review.reviewDate}</p>
-                              
-                              </div>
+                        <div class="user">
+                          <div class="user-pic">
+                            <h1 hidden>{i + 1}</h1>
+                            {/* <h1 hidden>{j + 1}</h1> */}
+                            <Link to={`../profiledetail/${profile.profileId}`}>
+                              <button>
+                                {profile.profileImg ? (
+                                  <Avatar
+                                    alt="Profile picture"
+                                    src={profile.profileImg}
+                                  />
+                                ) : (
+                                  <Avatar sx={{ bgcolor: deepOrange[500] }}>
+                                    {profile.name[0]}
+                                  </Avatar>
+                                )}
+                              </button>
+                            </Link>
+
+                            <svg
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              height="20"
+                              width="20"
+                              xmlns="http://www.w3.org/2000/svg"
+                            ></svg>
                           </div>
+                          <div class="user-info">
+                            <span>{profile.profileName}</span>
+                            <p>{review.reviewDate}</p>
+                          </div>
+                        </div>
                       </div>
                       <div class="comments">
                         <div class="comment-react mt-4">
-                    
-                          <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', }}>
-                          
-                          {/* like button */}
-                          <button
-                            disabled={likedReviews.includes(review.reviewId)}
-                            onClick={() =>
-                              handleLikeClick(profile.profileId, review.reviewId)
-                            }
+                          <Card
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              justifyContent: "flex-start",
+                              alignItems: "flex-start",
+                            }}
                           >
-                            <IconButton aria-label="add to favorites">
-                              <FavoriteIcon color="secondary" />
-                            </IconButton>
-                          </button>
-                          <span>
-                            {likedReviews.includes(review.reviewId)
-                              ? Number(review.reviewLikeCount) + 1
-                              : review.reviewLikeCount}
-                          </span>
+                            {/* like button */}
+                            <button
+                              disabled={likedReviews.includes(review.reviewId)}
+                              onClick={() =>
+                                handleLikeClick(
+                                  profile.profileId,
+                                  review.reviewId
+                                )
+                              }
+                            >
+                              <IconButton aria-label="add to favorites">
+                                <FavoriteIcon color="secondary" />
+                              </IconButton>
+                            </button>
+                            <span>
+                              {likedReviews.includes(review.reviewId)
+                                ? Number(review.reviewLikeCount) + 1
+                                : review.reviewLikeCount}
+                            </span>
+                            <hr />
+                            <Link to={`./comments`}>
+                              <button>
+                                <IconButton aria-label="comment">
+                                  <MarkUnreadChatAltIcon />
+                                </IconButton>
+                              </button>
+                            </Link>
+                            <span>3</span>
+                            <hr />
+
+                            <button>
+                              <IconButton aria-label="share">
+                                <ShareIcon />
+                              </IconButton>
+                            </button>
+                          </Card>
                           <hr />
-
-                          <button>
-                            <IconButton aria-label="share">
-                            <MarkUnreadChatAltIcon />
-                          </IconButton>
-                          </button> 
-                          <span>3</span>
-                          <hr/>
-
-                          <button>
-                            <IconButton aria-label="share">
-                            <ShareIcon />
-                          </IconButton>
-                          </button>
-                          
-                        </Card>
-                          <hr/>
-                          
-
-                          
                         </div>
                         <div class="comment-container">
-
                           <div class="user">
                             <div class="w-80 ">
                               <img
                                 className="rounded-3xl"
                                 src={review.reviewImg} //food photo
                                 alt=""
-                              />     
+                              />
                             </div>
                           </div>
 
@@ -283,23 +298,21 @@ const ReviewAdminHome = () => {
                             </p>
 
                             <Box
-                                sx={{
-                                  '& > legend': { mt: 1 },
-                                }}
-                              >
-                                <Typography component="legend"></Typography>
-                                <Rating
-                                  name="simple-controlled"
-                                  size="small"
-                                  value={review.reviewRate}
-                                  readOnly
-                                />
-                              </Box>
-
+                              sx={{
+                                "& > legend": { mt: 1 },
+                              }}
+                            >
+                              <Typography component="legend"></Typography>
+                              <Rating
+                                name="simple-controlled"
+                                size="small"
+                                value={review.reviewRate}
+                                readOnly
+                              />
+                            </Box>
                           </div>
                         </div>
-                      </div> 
-
+                      </div>
                     </div>
                   </form>
                 ))}
@@ -307,8 +320,6 @@ const ReviewAdminHome = () => {
             ))}
           </div>
         </div>
-
-
       </div>
     </div>
   );

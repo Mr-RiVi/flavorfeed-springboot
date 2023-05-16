@@ -6,6 +6,7 @@ import SideNavbar from '../components/sidenavbar-enterpreneur.component'
 
 import UserReviewHome from '../pages/userview/user-review-home'
 import UserProfileDetails from '../pages/userview/user-review-view'
+import CommentSection from '../pages/comment/comments'
 
 const UserReviewRouterHome = () => {
   return (
@@ -17,6 +18,7 @@ const UserReviewRouterHome = () => {
           <Routes >
             <Route path="/" element={<UserReviewHome />}></Route>
             <Route path="/userprofiledetail/:id" element={<UserProfileDetails />}></Route> 
+            <Route path="/comments" element={<CommentSection />}></Route>
 
           </Routes>
         </div>
