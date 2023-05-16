@@ -93,9 +93,9 @@ const CommentSection = () => {
               className="comment bg-gray-50 hover:bg-gray-100 p-4 rounded-md transition-colors duration-200 ease-in-out"
             >
               <div>{comment.description}</div>
-              <div className="text-gray-500 text-sm mt-1">
+              {/* <div className="text-gray-500 text-sm mt-1">
                 Comment ID: {String(index + 1).padStart(4, "0")}
-              </div>
+              </div> */}
               <Link
                 to={`/edit-comment/${String(index + 1).padStart(4, "0")}`}
                 className="text-blue-500 hover:underline inline-block mt-2"

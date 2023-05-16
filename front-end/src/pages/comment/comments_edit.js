@@ -7,13 +7,16 @@ const EditCommentPage = () => {
   const navigate = useNavigate();
   const [comment, setComment] = useState("");
   const [updatedComment, setUpdatedComment] = useState("");
+  const [originalCommentId, setOriginalCommentId] = useState("");
 
   useEffect(() => {
     const fetchComment = async () => {
       try {
-        const originalCommentId = getOriginalCommentId(commentId);
+        const originalId = getOriginalCommentId(commentId);
+        setOriginalCommentId(originalId);
+
         const response = await axios.get(
-          `http://localhost:3000/api/comments/get-comment/${originalCommentId}`
+          `http://localhost:3000/api/comments/get-comment/${originalId}`
         );
         setComment(response.data.description);
         setUpdatedComment(response.data.description);
@@ -26,34 +29,36 @@ const EditCommentPage = () => {
   }, [commentId]);
 
   const getOriginalCommentId = (formattedId) => {
-    // Map the formatted ID to the original comment ID
     switch (formattedId) {
       case "0001":
-        return "f9b56ece";
-      case "0002":
         return "b8cbb7cb";
-      case "0003":
+      case "0002":
         return "c34474e3";
+      case "0003":
+        return "e28d2a15";
       case "0004":
         return "09869cae";
-      // Add more cases as needed for other formatted IDs
+      case "0005":
+        return "4581b0dc";
+      case "0006":
+        return "64e24a67";
+      case "0007":
+        return "b8dd76f6";
+      case "0008":
+        return "dec403cf";
       default:
         return "";
     }
   };
 
-  const formattedCommentId = parseInt(commentId, 10).toString(); // Remove leading zeros
-
   const handleUpdate = async () => {
     try {
-      const originalCommentId = getOriginalCommentId(formattedCommentId);
       await axios.put(
         `http://localhost:3000/api/comments/update-comment/${originalCommentId}`,
         {
           description: updatedComment,
         }
       );
-      // Redirect to "/comments/comments"
       navigate("/comments/comments");
     } catch (error) {
       console.error("Error updating comment:", error);
@@ -62,11 +67,9 @@ const EditCommentPage = () => {
 
   const handleDelete = async () => {
     try {
-      const originalCommentId = getOriginalCommentId(formattedCommentId);
       await axios.delete(
         `http://localhost:3000/api/comments/delete-comment/${originalCommentId}`
       );
-      // Redirect to "/comments/comments"
       navigate("/comments/comments");
     } catch (error) {
       console.error("Error deleting comment:", error);
@@ -78,6 +81,9 @@ const EditCommentPage = () => {
       <div className="w-96 p-8 bg-gray-100 border border-gray-300 rounded">
         <h2 className="text-xl mb-4">Edit/Delete Comment</h2>
         <div className="text-gray-700 mb-4">{comment}</div>
+        {/* <div className="text-gray-500 mb-4">
+          Original Comment ID: {originalCommentId || "N/A"}
+        </div> */}
         <input
           type="text"
           value={updatedComment}
