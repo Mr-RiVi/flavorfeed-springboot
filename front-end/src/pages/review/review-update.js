@@ -116,7 +116,7 @@ export default function ReviewUpdate() {
                   <img
                     src={reviewImg || r}
                     alt=""
-                    className=" opacity-100 rounded-xl shadow-xl h-auto align-middle border-none lg:-ml-1 max-w-150-px"
+                    className=" opacity-100 rounded-xl shadow-xl h-auto align-middle border-none max-w-150-px"
                   />
 
                 </div>
