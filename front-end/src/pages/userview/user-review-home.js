@@ -157,24 +157,22 @@ const UserReviewHome = () => {
                             </button>
                             <span>{review.reviewLikeCount}</span>
                             <hr />
-
-                            <button>
-                              <Link to={`./comments`}>
+                            {/* <Link to={`./comments`}> */}
+                              <button>
                                 <IconButton aria-label="share">
                                   <MarkUnreadChatAltIcon />
                                 </IconButton>
-                              </Link>
-                            </button>
+                              </button>
+                            {/* </Link> */}
                             <span>3</span>
                             <hr />
-
-                            <button>
-                              <Link to={`./comments`}>
+                            {/* <Link to={`./comments`}> */}
+                              <button>
                                 <IconButton aria-label="share">
                                   <ShareIcon />
                                 </IconButton>
-                              </Link>
-                            </button>
+                              </button>
+                            {/* </Link> */}
                           </Card>
                           <hr />
                         </div>

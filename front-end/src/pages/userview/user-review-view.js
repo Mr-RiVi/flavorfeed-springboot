@@ -199,21 +199,21 @@ const UserProfileDetails = () => {
                           <hr />
 
                           <button>
-                            <Link to={`/comments`}>
+                            {/* <Link to={`/comments`}> */}
                               <IconButton aria-label="share">
                                 <MarkUnreadChatAltIcon />
                               </IconButton>
-                            </Link>
+                            {/* </Link> */}
                           </button>
                           <span>3</span>
                           <hr />
 
                           <button>
-                            <Link to={`/comments`}>
+                            {/* <Link to={`/comments`}> */}
                               <IconButton aria-label="share">
                                 <ShareIcon />
                               </IconButton>
-                            </Link>
+                            {/* </Link> */}
                           </button>
                         </Card>
                         <hr />

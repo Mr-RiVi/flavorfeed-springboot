@@ -59,7 +59,7 @@ const EditCommentPage = () => {
           description: updatedComment,
         }
       );
-      navigate("/comments/comments");
+      navigate("/reviewHome/comments");
     } catch (error) {
       console.error("Error updating comment:", error);
     }
