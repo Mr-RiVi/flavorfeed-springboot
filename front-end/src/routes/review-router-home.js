@@ -11,14 +11,12 @@ import ReviewCreate from "../pages/review/review-create";
 import ProfileDetails from "../pages/profile/profile-view";
 import ProfileUpdate from "../pages/profile/profile-update";
 import Seek from "../pages/review/seek";
-
 import CommentSection from "../pages/comment/comments";
 
 const ReviewRouterHome = () => {
   return (
     <div>
       <Header />
-
       <div className="flex min-w-full w-full">
         <SideNavbar />
         <div className="ml-[80px]">

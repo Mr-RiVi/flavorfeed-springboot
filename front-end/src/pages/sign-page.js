@@ -55,20 +55,22 @@ const SignUpPage = () => {
         profileImg: profile.profileImg,
         profileFollow: profile.profileFollow,
         profilePassword: profile.profilePassword,
-        reviews: [{
-          reviewId: profile.reviewId,
-          // Add any other review properties here
-        }]
+        reviews: []
       };
+  
       const response = await fetch("http://localhost:3000/api/profile/create", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(newProfile),
+        body: JSON.stringify(newProfile)
       });
+  
       if (response.ok) {
+        const responseData = await response.json();
+        const newProfileId = responseData.profileId;
         alert("Profile created successfully");
+  
         setProfile({
           profileId: "",
           profileName: "",
@@ -80,6 +82,9 @@ const SignUpPage = () => {
           profilePassword: "",
           reviews: []
         });
+  
+        // Redirect to the newly created profile
+        window.location.href = `../reviewerHome/profiledetail/${newProfileId}`;
       } else {
         throw new Error("Failed to create profile");
       }
@@ -87,6 +92,7 @@ const SignUpPage = () => {
       console.error(error);
     }
   };
+  
 
   return (
     <div>
@@ -198,7 +204,7 @@ const SignUpPage = () => {
                   </div>
 
                   <div className="flex items-start"></div>
-                  <Link to={`../reviewerHome`}>              
+                  <Link > 
                     <button
                       type="submit"
                       className="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 

@@ -20,6 +20,7 @@ public class CommentController {
      * @param comments
      * @return comment obj
      */
+  
     @PostMapping("/create")
     public Comments createComments(@RequestBody CommentRequest comments) {
         return service.addComments(comments);
@@ -46,6 +47,7 @@ public class CommentController {
      * @param commentId
      * @return comment obj
      */
+
     @PutMapping("/update-comment/{commentId}")
     public Comments modifyComments(@PathVariable("commentId") String commentId, @RequestBody CommentRequest request) {
         return service.updateComments(commentId, request);

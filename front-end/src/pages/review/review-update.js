@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import Background from "../../assets/images/reviewbg.jpg";
 import r2 from "../../assets/images/review/R (3).jpeg";
+import r from "../../assets/images/review/R.jpeg";
 
 export default function ReviewUpdate() {
   const { profileId, reviewId } = useParams();
@@ -109,14 +110,13 @@ export default function ReviewUpdate() {
         <div className=" ml-44 p-10 -mt-28">
           <div class="p-8 bg-gray-400 shadow mt-28 opacity-90 rounded-3xl ">
             <div class="grid grid-cols-1 md:grid-cols-3">
-
               {/* pic */}
               <div class="relative">
                 <div class="w-96 h-60 bg-gray-500 mx-auto rounded-xl shadow-2xl absolute mt-20 -ml-[470px] flex items-center justify-center text-slate-700 left-[500px] ">
                   <img
-                    src={reviewImg || r2}
+                    src={reviewImg || r}
                     alt=""
-                    className=" opacity-100 rounded-xl shadow-xl h-auto align-middle border-none lg:-ml-1 max-w-150-px"
+                    className=" opacity-100 rounded-xl shadow-xl h-auto align-middle border-none max-w-150-px"
                   />
 
                 </div>

@@ -61,6 +61,7 @@ export default function ProfileUpdate() {
       });
       if (response.ok) {
         alert("Profile updated successfully");
+        window.location.href = `../profiledetail/${id}`
       } else {
         throw new Error("Failed to update profile");
       }
@@ -82,6 +83,7 @@ export default function ProfileUpdate() {
         if (response.ok) {
           setDeleteSuccess(true);
           alert("Profile Deleted successfully");
+          window.location.href = `../../reviewerHome`
         } else {
           throw new Error("Failed to delete profile");
         }
@@ -112,6 +114,9 @@ export default function ProfileUpdate() {
                     alt=""
                     className=" opacity-100 rounded-full shadow-xl h-auto align-middle border-none max-w-150-px"
                   />
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                  </svg>
                 </div>
                 <div className="mr-44">
                   <input
@@ -124,16 +129,6 @@ export default function ProfileUpdate() {
                   />
                 </div>
               </div>
-            </div>
-
-            <div class="mt-7 text-center pb-6 border-b border-gray-800">
-              <h1 class="text-3xl font-medium text-gray-700">
-                Maleesha Shavindi
-              </h1>
-              <p class="mt-0 text-lg text-gray-500">maleeshashavindi@gmail.com</p>
-              <p class="text-xl mt-0 font-medium text-gray-600 ">
-                Panadura,Sri Lanka
-              </p>
             </div>
 
             <div class=" flex flex-col justify-center ">

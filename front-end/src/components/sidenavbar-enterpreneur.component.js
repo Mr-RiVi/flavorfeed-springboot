@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import { BsArrowLeftShort, BsChevronDown, BsCalendar2DateFill, BsFileBarGraphFill, } from 'react-icons/bs'
 import { AiFillEnvironment, AiFillHome } from 'react-icons/ai'
@@ -6,8 +7,6 @@ import { RiDashboardFill, RiTeamFill } from 'react-icons/ri'
 import { FaMoneyCheckAlt, FaWarehouse } from 'react-icons/fa'
 import { TbReport } from 'react-icons/tb'
 
-import { Link } from 'react-router-dom'
-  
 const SideNavbar = () => {
   const [open, setOpen] = useState(false)
   const [submenuOpen, setSubmenuOpen] = useState(false)
@@ -22,30 +21,7 @@ const SideNavbar = () => {
       submenu: true,
       spacing: true,
       submenuItems: [
-        { title: 'Add New Mentor', src: 'addMentorDetails' },
-        { title: 'View All Mentors', src: 'viewAllEmployees' },
-      ],
-    },
-    {
-      title: 'A',
-      icon: <BsFileBarGraphFill />,
-      submenu: true,
-      submenuItems: [{ title: 'A1', src: 'addEmployee' }],
-    },
-    { 
-      title: 'B',
-      icon: <FaMoneyCheckAlt />,
-      src: 'viewAllSalary', 
-    },
-
-    {
-      title: 'C',
-      icon: <FaWarehouse />,
-      submenu: true,
-      spacing: true,
-      submenuItems: [
-        { title: 'C1', src: 'addWarehouse' },
-        { title: 'C2', src: 'viewAllWarehouses' },
+        { title: 'Add New Profiles', src: 'addMentorDetails' },
       ],
     },
 
@@ -97,7 +73,7 @@ const SideNavbar = () => {
                   <Link to={menu.src}>
                     <li
                       key={index}
-                      className={`text-yellow-950 text-sm flex 
+                      className={`text-black text-sm flex 
                             items-center gap-x-4 cursor-pointor p-2
                             hover:bg-light-white rounded-md 
                             ${menu.spacing ? 'mt-9' : 'mt-2'}`}

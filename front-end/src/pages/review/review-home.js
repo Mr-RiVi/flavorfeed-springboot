@@ -75,6 +75,7 @@ const ReviewAdminHome = () => {
     }
   };
 
+  //Like function
   const handleLikeClick = async (profileId, reviewId) => {
     if (likedReviews.includes(reviewId)) {
       return;
@@ -183,9 +184,7 @@ const ReviewAdminHome = () => {
         </div>
 
         <div className="w-[1382px] justify-center h-auto bg-gray-200 ">
-          <div className="flex flex-row overflow-auto justify-start mt-2 mb-2 drop-shadow-2xl w-[1382px]">
-            {" "}
-            {/* bottom space */}
+          <div className="flex flex-row overflow-auto justify-start mt-2 mb-2 drop-shadow-2xl w-[1382px]">  {/* bottom space */}
             {filterProfiles().map((profile, i) => (
               <div key={profile.profileId}>
                 {getReviews(profile.profileId).map((review) => (
