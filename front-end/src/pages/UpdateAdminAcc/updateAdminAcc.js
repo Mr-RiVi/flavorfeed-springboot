@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+
 import {
   faCheck,
   faTimes,
@@ -12,9 +13,13 @@ const USERNAME_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-const REGISTER_URL = "http://localhost:3000/api/admin/create";
+const UPDATE_URL =
+  "http://localhost:3000/api/admin/update-admin/6461f1049a2b54297072c27d";
 
-const Signup = () => {
+const USERS_FETCH_URL =
+  "http://localhost:3000/api/admin/6461f1049a2b54297072c27d";
+
+const UpdateAdminAcc = () => {
   const errRef = useRef();
 
   const [name, setName] = useState("");
@@ -38,6 +43,8 @@ const Signup = () => {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
+  const [account, setAccount] = useState({});
+
   useEffect(() => {
     setValidUsername(USERNAME_REGEX.test(username));
   }, [username]);
@@ -55,8 +62,33 @@ const Signup = () => {
     setErrMsg("");
   }, [username, email, password, matchPassword]);
 
-  //logic when user submit the form
-  const handleSubmit = async (e) => {
+  //this function fetching admin profile data
+  const fetchAccount = async () => {
+    try {
+      const response = await axios.get(USERS_FETCH_URL);
+      if (response?.status >= 200 && response?.status < 300) {
+        setAccount(response.data);
+        console.log(account);
+        setName(response.data.fullName);
+        setUsername(response.data.username);
+        setEmail(response.data.email);
+        setPassword(response.data.password);
+
+        // successful response
+        console.log("Response is successful");
+      } else {
+        // unsuccessful response
+        console.log("Error: " + response.status + " " + response.statusText);
+      }
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    fetchAccount();
+  }, []);
+
+  //this function updating admin profile
+  const handleupdate = async (e) => {
     e.preventDefault();
     // if signup button enabled with JS hack? so we check again username and password is valid or not
     const v1 = USERNAME_REGEX.test(username);
@@ -66,16 +98,22 @@ const Signup = () => {
       return;
     }
     try {
-      const response = await axios.post(
-        REGISTER_URL,
-        JSON.stringify({ fullName: name, username, email, password }),
+      const response = await axios.patch(
+        UPDATE_URL,
+        {
+          fullName: "hashan224",
+          username: "nimal123",
+          email: "nimal@gmail.com",
+          password: "1234nimal",
+        },
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         }
       );
-      console.log(response?.data);
-      console.log(response?.accessToken);
+      if (!response?.data) console.log("updation unsuccessfull");
+      console.log(response.data);
+      console.log(response.accessToken);
       console.log(JSON.stringify(response));
       setSuccess(true);
       //clear state and controlled inputs
@@ -91,7 +129,7 @@ const Signup = () => {
       } else if (err.response?.status === 409) {
         setErrMsg("Username Taken");
       } else {
-        setErrMsg("Registration Failed");
+        setErrMsg("Updation Failed");
       }
       errRef.current.focus();
     }
@@ -114,8 +152,8 @@ const Signup = () => {
           >
             {errMsg}
           </p>
-          <h1 align="center">Sign Up</h1>
-          <form onSubmit={handleSubmit}>
+          <h1 align="center">Update</h1>
+          <form onSubmit={handleupdate}>
             <label htmlFor="name">Full Name:</label>
             <input
               type="text"
@@ -286,7 +324,7 @@ const Signup = () => {
                     : false
                 }
               >
-                Sign Up
+                Update
               </button>
             </div>
           </form>
@@ -296,4 +334,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default UpdateAdminAcc;

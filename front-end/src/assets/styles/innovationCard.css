@@ -1,0 +1,76 @@
+.card {
+  display: flex;
+  width: 80%;
+  height: 200px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vault-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  margin-top: 40px;
+}
+
+.card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-body {
+  flex: 1;
+  padding: 20px;
+}
+
+.card-title {
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.card-industry,
+.card-stage,
+.card-description {
+  margin: 0;
+  padding-top: 10px;
+  font-size: 1rem;
+  color: #777;
+}
+
+.profile-button {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center; /* Changed to center */
+  padding: 10px;
+}
+
+.delete-button:hover {
+  background-color: red;
+}
+.profile-button button {
+  background-color: #ffd700;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.profile-button:hover {
+  background-color: #ffc107;
+}

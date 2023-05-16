@@ -8,6 +8,8 @@ import ReviewCreate from "../pages/review/review-create";
 import ProfileDetails from "../pages/profile/profile-view";
 import ProfileUpdate from "../pages/profile/profile-update";
 import Seek from "../pages/review/seek";
+import Header from "../components/layout/header.js";
+import SideNavbar from "../components/sidenavbar-enterpreneur.component";
 
 const ReviewRouterHome = () => {
   return (
